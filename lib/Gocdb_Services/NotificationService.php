@@ -118,7 +118,7 @@ class NotificationService extends AbstractEntityService {
                     $email = $approving_user->getEmail();
             $subject = "GocDB: A Role request from, " .$requesting_user->getForename()." requires your attention";
             $body = "Dear ". $approving_user->getForename() .", ".
-            	$requesting_user->getForename() ." requested ". $role_requested->getRoleType()->getName() ." on ". $entity->getName() ." which requires your attention.\n\n".
+            	$requesting_user->getForename() ." requested ". $role_requested->getRoleType()->getName() ." on ".$role_requested->getOwnedEntity()->getName()  ." which requires your attention.\n\n".
                 "You can approve or deny the request here:\n\n" . $webPortalURL . "/index.php?Page_Type=Role_Requests\n\n".
                 "Note: This role could already have been approved or denied by another GocDB User";
 
