@@ -170,7 +170,7 @@ function Get_User_Principle_PI() {
     $fwMan = \org\gocdb\security\authentication\FirewallComponentManager::getInstance();
     $firewallArray = $fwMan->getFirewallArray();
     try {
-       $x509Token = new org\gocdb\security\authentication\X509AuthenticationToken();
+       $x509Token = new org\gocdb\security\authentication\ShibAuthToken();
        $auth = $firewallArray['fwC1']->authenticate($x509Token);
        return $auth->getPrinciple();
     } catch(org\gocdb\security\authentication\AuthenticationException $ex){

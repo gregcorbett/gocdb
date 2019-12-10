@@ -153,7 +153,7 @@ class ShibAuthToken implements IAuthentication {
 //            die('Now go configure this AuthToken file ['.__FILE__.']');
 //        }
         // if we have not set the principle/userDetails, re-direct to our Discovery Service
-        $target = urlencode("https://" . $hostname . "/portal/");
+        $target = urlencode("https://" . $hostname . "/gocdbpi/private/?method=get_site_security_info");
         header("Location: https://" . $hostname . "/Shibboleth.sso/Login?target=" . $target);
         die();
     }
