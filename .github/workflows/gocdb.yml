@@ -33,6 +33,8 @@ jobs:
     - name: Install Dependencies
       run: composer install
 
-    - name: Compile Entities
+    - name: Compile Doctrine Entities
       run: mkdir -p compiledEntities && vendor/bin/doctrine orm:generate-proxies compiledEntities/
+      env: 
+          COMPOSER_HOME: $GITHUB_WORKSPACE
 
