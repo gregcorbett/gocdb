@@ -35,9 +35,6 @@ jobs:
     - name: Install httpd
       run: yum -y install httpd
 
-    - name: Start MariaDB
-      run: systemctl start mysql
-
     - name: Install GOCDB Requirements
       run: yum -y install php php-xml php-devel php-pear gcc composer
 
