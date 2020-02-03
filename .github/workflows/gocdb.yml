@@ -1,0 +1,35 @@
+name: GOCDB Webserver Tests
+
+on: [push]
+
+jobs:
+  linux:
+    strategy: 
+      # Don't cancel all the jobs if one fails.
+      fail-fast: false 
+      matrix:
+        container:
+        - 'centos:7'
+
+    runs-on: ubuntu-latest
+    container: ${{ matrix.container }}
+
+    steps:
+    # Checkout the codebase.
+    - uses: actions/checkout@v2
+
+    - name: Install EPEL Release # for things like composer
+      run: yum -y install epel-release
+
+    - name: Install httpd
+      run: yum -y install httpd
+
+    - name: Install GOCDB Requirements
+      run: yum -y install php php-xml php-devel php-pear gcc composer
+
+    - name: Validate composer.json and composer.lock
+      run: composer validate
+
+    - name: Install Dependencies
+      run: composer install
+
