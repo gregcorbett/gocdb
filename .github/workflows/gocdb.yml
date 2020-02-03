@@ -44,6 +44,9 @@ jobs:
     - name: Install Dependencies
       run: composer install
 
+    - name: bootstrap fun
+      run: cp ${GITHUB_WORKSPACE}/.github/workflows/bootstrap_doctrine.php ${GITHUB_WORKSPACE}/lib/Doctrine/bootstrap_doctrine.php
+
     - name: Compile Doctrine Entities
       run: mkdir -p compiledEntities && vendor/bin/doctrine orm:generate-proxies compiledEntities/
       env: 
