@@ -34,6 +34,7 @@ class MyConfig1 implements IConfigFirewallComponent {
        $this->gocdbUserDetailsService = new GOCDBUserDetailsService();
 
        $this->tokenClassList = array();
+       // $this->tokenClassList[] = 'org\gocdb\security\authentication\X509AuthenticationToken';
        $this->tokenClassList[] = 'org\gocdb\security\authentication\GregToken';
        //$this->tokenClassList[] = 'org\gocdb\security\authentication\ShibAuthToken';
        //$this->tokenClassList[] = 'org\gocdb\security\authentication\SimpleSamlPhpAuthToken';

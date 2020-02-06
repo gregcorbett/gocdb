@@ -162,20 +162,30 @@ function Get_User_Principle(){
 }
 
 /**
- * Get the DN from an x509 cert or null if a user certificate can't be loaded.
+ * Get the Principle or null if a Principle can't be determined.
  * Called from the PI to authenticate requests using certificates only.
  * @return string or null if can't authenticate request
  */
 function Get_User_Principle_PI() {
+
+    # No need to cache as API calls are single calls.
+    // if(MyStaticAuthTokenHolder::getInstance()->getAuthToken() != null){
+    //    return MyStaticAuthTokenHolder::getInstance()->getAuthToken();
+    // }
+
     $fwMan = \org\gocdb\security\authentication\FirewallComponentManager::getInstance();
     $firewallArray = $fwMan->getFirewallArray();
-    try {
-       $x509Token = new org\gocdb\security\authentication\X509AuthenticationToken();
-       $auth = $firewallArray['fwC1']->authenticate($x509Token);
-       return $auth->getPrinciple();
-    } catch(org\gocdb\security\authentication\AuthenticationException $ex){
-       // failed auth, so return null and let calling page decide to allow
-       // access or not (some PI methods don't need to be authenticated with a cert)
+    $firewall = $firewallArray['fwC1']; // select which firewall component you need
+    $auth = $firewall->getAuthentication();
+
+    if ($auth != null) {
+        $principleString = $auth->getPrinciple();
+        // update the static holder so we can quickly return the token
+        // for the current request on repeat callouts to Get_User_AuthToken (is quicker than authenticating again).
+        MyStaticPrincipleHolder::getInstance()->setPrincipleString($principleString);
+        MyStaticAuthTokenHolder::getInstance()->setAuthToken($auth);
+        error_log($principleString);
+        return $principleString;
     }
     return null;
 }
