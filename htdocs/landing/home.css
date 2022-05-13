@@ -160,3 +160,9 @@ div.policyText {
     margin-bottom: auto;
     text-align: justify;
 }
+
+table, th {
+    border: solid 2px lightgrey;
+    border-collapse: collapse;
+    text-align: left;
+}
