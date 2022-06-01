@@ -137,20 +137,39 @@
                     'alt="The logo of the European Union" />'.
                     '</a>';
 
+        // Force the following logos onto a new line, so one doesn't appear
+        // above the others.
+        $HTML .= "<br>";
+
         $HTML .= '<a href="https://www.egi.eu" class="Sponsor_Link" target="_blank">'.
                     '<img class="Sponsor_Logo" '.
                     'src="'.\GocContextPath::getPath().'img/egi_logo_no_background_150.png" '.
                     'alt="The logo of the E G I Foundation" />
                     </a>';
 
-        $HTML .= '<a href="https://www.eosc-hub.eu/" class="Sponsor_Link" target="_blank">'.
+        $HTML .= '<a href="https://eoscfuture.eu/" class="Sponsor_Link" target="_blank">'.
                     '<img class="Sponsor_Logo" '.
-                    'src="'.\GocContextPath::getPath().'img/eosc-hub-v-web_150.png" '.
-                    'alt="The logo of the EOSC-hub Horizon 20 20 project" />'.
+                    'src="'.\GocContextPath::getPath().'img/eosc_future_150.png" '.
+                    'alt="The logo of the EOSC Future Horizon 20 20 project" />'.
+                    '</a>';
+
+        $HTML .= '<a href="https://www.iris.ac.uk/" class="Sponsor_Link" target="_blank">'.
+                    '<img class="Sponsor_Logo" '.
+                    'src="'.\GocContextPath::getPath().'img/iris_150.png" '.
+                    'alt="The logo of the IRIS Community" />'.
                     '</a>';
 
         $HTML .= '</div>';
-        $HTML .= 'GOCDB is provided by <a href="https://stfc.ukri.org/">STFC</a> for <a href="https://egi.eu">EGI</a>, co-funded by <a href="https://egi.eu">EGI.eu</a> and <a href="https://www.eosc-hub.eu/">EOSC-hub.</a>';
+        $HTML .= 'GOCDB is provided by <a href="https://stfc.ukri.org/">STFC</a> and is co-funded by:';
+	      $HTML .= '<br>- ';
+        $HTML .= '<a href="https://egi.eu">EGI</a> via <a href="https://www.egi.eu/project/egi-ace/">EGI-ACE</a>';
+        $HTML .= '<br>- ';
+        $HTML .= '<a href="https://eoscfuture.eu/">EOSC-Future</a>';
+        $HTML .= '<br>- ';
+        $HTML .= 'The <a href="https://www.iris.ac.uk/">IRIS</a> communtiy';
+
+
+        $HTML .= '<br><br>Docs';
 	      $HTML .= '<br>- ';
         $HTML .= '<a href="/privacy.html">Privacy Notice</a>.';
 	      $HTML .= '<br>- ';
