@@ -67,14 +67,15 @@
     function Get_Standard_Bottom_Section_HTML()
     {
         $HTML = "";
-        //$HTML .= Get_File_Contents("static_html/stfc_footer.html");
         $HTML .= "</div>";
+        $HTML .= Get_File_Contents(__DIR__."/../../static_html/standard_footer.html");
+
         // empty div so that page container is
         // correct size
 
         // end page container
         $HTML .= "</div>";
-        $HTML .= Get_File_Contents(__DIR__."/../../static_html/standard_footer.html");
+
         return $HTML;
     }
 

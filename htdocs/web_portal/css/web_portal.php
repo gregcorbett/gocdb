@@ -217,6 +217,21 @@ div.Indented {
     padding: 0.5em 1em 0.0em 1em;
 }
 
+div.footer {
+
+  overflow: inherit;
+  z-index: inherit;
+
+  background: #FCFCFC;
+  border: 1px solid #B4B4B4;
+  border-radius: 0.4em;
+
+  margin: 0.5em 1em 0.5em 0.5em;
+  padding: 0.5em 1em 0.5em 1em;
+
+
+}
+
 .empty {
     clear: both;
 }
@@ -684,7 +699,7 @@ div.rightPageContainer {
     background-position: top right;
     background-repeat: no-repeat;
     overflow: hidden;
-    margin-bottom: 3em;
+    margin-bottom: 0em;
     border: 1px solid #B4B4B4;
     padding: 1em;
     border-radius: 0.4em;
