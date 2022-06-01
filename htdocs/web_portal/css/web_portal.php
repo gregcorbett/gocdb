@@ -137,11 +137,11 @@ h1 {
 
 
 /*
-    *	Containing DIV's
-	*	Page Container is the whole page
-	*	Left Box is the menu
-	*	Right Box is the smaller page contents
-	*/
+ * Containing DIV's
+ * - Page Container is the whole page
+ * - Left Box is the menu
+ * - Right Box is the smaller page contents
+ */
 .page_container {
     position: relative;
     margin-left: auto;
