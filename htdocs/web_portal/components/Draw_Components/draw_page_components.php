@@ -135,7 +135,7 @@
                     '<img class="Sponsor_Logo" '.
                     'src="'.\GocContextPath::getPath().'img/eu_flag_yellow_low_150.png" '.
                     'alt="The logo of the European Union" />'.
-                    '.</a>';
+                    '</a>';
 
         $HTML .= '<a href="https://www.egi.eu" class="Sponsor_Link" target="_blank">'.
                     '<img class="Sponsor_Logo" '.
