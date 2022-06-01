@@ -169,11 +169,11 @@
         $HTML .= 'The <a href="https://www.iris.ac.uk/">IRIS</a> communtiy';
 
 
-        $HTML .= '<br><br>Docs';
+        $HTML .= '<br><br>End User Policy Notices:';
 	      $HTML .= '<br>- ';
-        $HTML .= '<a href="/privacy.html">Privacy Notice</a>.';
+        $HTML .= '<a href="/privacy.html">Privacy Notice</a>';
 	      $HTML .= '<br>- ';
-        $HTML .= '<a href="/aup.html">Acceptable Use Policy</a>.';
+        $HTML .= '<a href="/aup.html">Acceptable Use Policy</a>';
         $HTML .= '</div>';
 
         return $HTML;
