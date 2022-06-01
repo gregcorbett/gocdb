@@ -126,7 +126,7 @@
 
         $HTML .= '<a href="https://stfc.ukri.org/" class="Sponsor_Link" target="_blank">'.
                     /* Allow for STFC council symbol extending above the upper bound of the UKRI symbol */
-                    '<img style="height: 112%; margin-top: -12%" class="Sponsor_Logo" '.
+                    '<img style="height: 28px; class="Sponsor_Logo" '.
                     'src="'.\GocContextPath::getPath().'img/UKRI_STF_Council-Logo_Horiz-RGB_crop.png" '.
                     'alt="The logo of the Science and Technology Facilities Council" />'.
                     '</a>';
