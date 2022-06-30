@@ -832,9 +832,6 @@ class User extends AbstractEntityService
 
         // Check the ID string does not already exist
         $this->valdidateUniqueIdString($keyValue);
-
-        // Check auth type is valid
-        $this->valdidateAuthType($keyName);
     }
 
     /**
@@ -923,9 +920,6 @@ class User extends AbstractEntityService
         if ($keyValue !== $identifier->getKeyValue()) {
             $this->valdidateUniqueIdString($keyValue);
         }
-
-        // Check auth type is valid
-        $this->valdidateAuthType($keyName);
 
         // If the identifiers key has changed, check there isn't an existing identifier with that key
         if ($keyName !== $identifier->getKeyName()) {
