@@ -2,7 +2,7 @@
     <h1 class="startPage">
       Welcome to GOCDB
       <img src="img/eosc_logo_thin.png" alt="The logo of the EOSC" height="70">
-      <img src="img/eosc_hub_thin.png" alt="The logo of the EOSC-hub Horizon 20 20 project" height="70">
+      <img src="/images/logos/eosc_future.png" alt="The logo of the EOSC Future Horizon 20 20 project" height="70">
     </h1>
     <div class="start_page_body">
     GOCDB is the official repository for storing and presenting topology and
