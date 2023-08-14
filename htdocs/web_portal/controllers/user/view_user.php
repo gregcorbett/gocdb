@@ -55,15 +55,16 @@ function view_user()
     /** @var \User $callingUser */
     $callingUser = $userService->getUserByPrinciple(Get_User_Principle());
 
+
+    // this is a 79 character line ===========================================
+    // this is a 80 character line ============================================
+    // this is a 99 character line ===============================================================
+    // this is a 100 character line ===============================================================
+    // this is a 119 character line ==================================================================================
+    // this is a 120 character line ===================================================================================
     // Restrict users to see only their own data unless authorised.
     // User objects are not 'owned' so we check their authz at connected sites.
-    if (
-        is_null($callingUser)
-        || (
-            !$callingUser->isAdmin()
-            && $user !== $callingUser
-            && !$userService->isAllowReadPD($callingUser)
-            )
+    if (is_null($callingUser) || (!$callingUser->isAdmin() && $user !== $callingUser && !$userService->isAllowReadPD($callingUser))
     ) {
             throw new Exception('You are not authorised to read other users\' personal data.');
     }
