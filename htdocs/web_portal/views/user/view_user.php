@@ -1,3 +1,4 @@
+
 <script type="text/javascript" src="<?php echo \GocContextPath::getPath()?>javascript/confirm.js"></script>
 <!-- onclick="return confirmSubmit()" -->
 <div class="rightPageContainer">
