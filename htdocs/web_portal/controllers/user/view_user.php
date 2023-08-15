@@ -56,12 +56,12 @@ function view_user()
     $callingUser = $userService->getUserByPrinciple(Get_User_Principle());
 
 
-    // this is a 79 character line ==========================================-
-    // this is a 80 character line ===========================================-
-    // this is a 99 character line ==============================================================-
-    // this is a 100 character line ==============================================================-
-    // this is a 119 character line =================================================================================-
-    // this is a 120 character line ==================================================================================-
+    // this is a 79 character line -=========================================-
+    // this is a 80 character line -==========================================-
+    // this is a 99 character line -=============================================================-
+    // this is a 100 character line -=============================================================-
+    // this is a 119 character line -================================================================================-
+    // this is a 120 character line -=================================================================================-
     // Restrict users to see only their own data unless authorised.
     // User objects are not 'owned' so we check their authz at connected sites.
     if (
