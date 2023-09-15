@@ -16,14 +16,14 @@ namespace org\gocdb\tests;
 
 use org\gocdb\scripts\ManageAPICredentialsActions;
 use org\gocdb\tests\ManageAPICredentialsTestUtils;
-use PHPUnit_Extensions_Database_Operation_Factory;
-use PHPUnit_Extensions_Database_TestCase;
+use \PHPUnit\DbUnit\Operation\Factory;
+use \PHPUnit\DbUnit\TestCase;
 
 require_once __DIR__ . '/ManageAPICredentialsTestUtils.php';
 require_once __DIR__ . '/../unit/lib/Gocdb_Services/ServiceTestUtil.php';
 require_once __DIR__ . '/../../resources/ManageAPICredentials/ManageAPICredentialsActions.php';
 
-class ManageUnrenewedAPICredentialsTest extends PHPUnit_Extensions_Database_TestCase
+class ManageUnrenewedAPICredentialsTest extends \PHPUnit\DbUnit\TestCase
 {
     private $entityManager;
     private $dbOpsFactory;
@@ -33,12 +33,12 @@ class ManageUnrenewedAPICredentialsTest extends PHPUnit_Extensions_Database_Test
         parent::__construct();
         // Use a local instance to avoid Mess Detector's whinging about avoiding
         // static access.
-        $this->dbOpsFactory = new PHPUnit_Extensions_Database_Operation_Factory();
+        $this->dbOpsFactory = new \PHPUnit\DbUnit\Operation\Factory();
     }
     /**
      * Overridden.
      */
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
         echo "\n\n-------------------------------------------------\n";
@@ -46,7 +46,7 @@ class ManageUnrenewedAPICredentialsTest extends PHPUnit_Extensions_Database_Test
     }
     /**
      * Overridden. Returns the test database connection.
-     * @return PHPUnit_Extensions_Database_DB_IDatabaseConnection
+     * @return \PHPUnit\DbUnit\Database\DefaultConnection
      */
     protected function getConnection()
     {
@@ -56,14 +56,14 @@ class ManageUnrenewedAPICredentialsTest extends PHPUnit_Extensions_Database_Test
     /**
      * Overridden. Returns the test dataset.
      * Defines how the initial state of the database should look before each test is executed.
-     * @return PHPUnit_Extensions_Database_DataSet_IDataSet
+     * @return \PHPUnit\DbUnit\DataSet\IDataSet
      */
     protected function getDataSet()
     {
         $dataset = $this->createFlatXMLDataSet(__DIR__ . '/../doctrine/truncateDataTables.xml');
         return $dataset;
         // Use below to return an empty data set if we don't want to truncate and seed
-        //return new PHPUnit_Extensions_Database_DataSet_DefaultDataSet();
+        //return new \PHPUnit\DbUnit\DataSet\DefaultDataSet();
     }
     /**
      * Overridden.
@@ -71,9 +71,9 @@ class ManageUnrenewedAPICredentialsTest extends PHPUnit_Extensions_Database_Test
     protected function getSetUpOperation()
     {
         // CLEAN_INSERT is default
-        //return PHPUnit_Extensions_Database_Operation_Factory::CLEAN_INSERT();
-        //return PHPUnit_Extensions_Database_Operation_Factory::UPDATE();
-        //return PHPUnit_Extensions_Database_Operation_Factory::NONE();
+        //return \PHPUnit\DbUnit\Operation\Factory::CLEAN_INSERT();
+        //return \PHPUnit\DbUnit\Operation\Factory::UPDATE();
+        //return \PHPUnit\DbUnit\Operation\Factory::NONE();
         //
         // Issue a DELETE from <table> which is more portable than a
         // TRUNCATE table <table> (some DBs require high privileges for truncate statements
@@ -92,7 +92,7 @@ class ManageUnrenewedAPICredentialsTest extends PHPUnit_Extensions_Database_Test
      * Sets up the fixture, e.g create a new entityManager for each test run
      * This method is called before each test method is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->entityManager = $this->createEntityManager();
@@ -105,7 +105,7 @@ class ManageUnrenewedAPICredentialsTest extends PHPUnit_Extensions_Database_Test
     /**
      * Run after each test function to prevent pile-up of database connections.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
         if (!is_null($this->entityManager)) {

@@ -35,7 +35,7 @@ require_once __DIR__ . '/writeAPI/endpointMethods.php';
 require_once __DIR__ . '/resourcesTests/ManageUnusedAPICredentialsTest.php';
 require_once __DIR__ . '/resourcesTests/ManageUnrenewedAPICredentialsTest.php';
 
-use PHPUnit_Framework_TestSuite;
+use \PHPUnit\Framework\TestSuite;
 
 /**
  * TestSuite designed to run the main doctrine tests
@@ -48,7 +48,7 @@ class DoctrineTestSuite1
         echo "\n\n-------------------------------------------------\n";
         echo "Executing Test Suite 1\n";
 
-        $suite = new PHPUnit_Framework_TestSuite('Test Suite 1');
+        $suite = new \PHPUnit\Framework\TestSuite('Test Suite 1');
 
         $suite->addTestSuite('DoctrineCleanInsert1Test');
         $suite->addTestSuite('NGIServiceTest');

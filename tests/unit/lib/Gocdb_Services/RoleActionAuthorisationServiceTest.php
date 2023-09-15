@@ -24,14 +24,14 @@ require_once __DIR__ . '/../../../doctrine/bootstrap.php';
 *
 * @author djm76
 */
-class RoleActionAuthorisationServiceTest extends PHPUnit_Extensions_Database_TestCase
+class RoleActionAuthorisationServiceTest extends PHPUnit\DbUnit\TestCase
 {
     private $em;
 
   /**
    * Overridden.
    */
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
         echo "\n\n-------------------------------------------------\n";
@@ -40,7 +40,7 @@ class RoleActionAuthorisationServiceTest extends PHPUnit_Extensions_Database_Tes
 
   /**
   * Overridden. Returns the test database connection.
-  * @return PHPUnit_Extensions_Database_DB_IDatabaseConnection
+  * @return PHPUnit\DbUnit\Database\DefaultConnection
   */
     protected function getConnection()
     {
@@ -51,13 +51,13 @@ class RoleActionAuthorisationServiceTest extends PHPUnit_Extensions_Database_Tes
   /**
   * Overridden. Returns the test dataset.
   * Defines how the initial state of the database should look before each test is executed.
-  * @return PHPUnit_Extensions_Database_DataSet_IDataSet
+  * @return PHPUnit\DbUnit\DataSet\IDataSet
   */
     protected function getDataSet()
     {
         return $this->createFlatXMLDataSet(__DIR__ . '/../../../doctrine/truncateDataTables.xml');
       // Use below to return an empty data set if we don't want to truncate and seed
-      //return new PHPUnit_Extensions_Database_DataSet_DefaultDataSet();
+      //return new PHPUnit\DbUnit\DataSet\DefaultDataSet();
     }
 
   /**
@@ -66,14 +66,14 @@ class RoleActionAuthorisationServiceTest extends PHPUnit_Extensions_Database_Tes
     protected function getSetUpOperation()
     {
       // CLEAN_INSERT is default
-      //return PHPUnit_Extensions_Database_Operation_Factory::CLEAN_INSERT();
-      //return PHPUnit_Extensions_Database_Operation_Factory::UPDATE();
-      //return PHPUnit_Extensions_Database_Operation_Factory::NONE();
+      //return PHPUnit\DbUnit\Operation\Factory::CLEAN_INSERT();
+      //return PHPUnit\DbUnit\Operation\Factory::UPDATE();
+      //return PHPUnit\DbUnit\Operation\Factory::NONE();
       //
       // Issue a DELETE from <table> which is more portable than a
       // TRUNCATE table <table> (some DBs require high privileges for truncate statements
       // and also do not allow truncates across tables with FK contstraints e.g. Oracle)
-        return PHPUnit_Extensions_Database_Operation_Factory::DELETE_ALL();
+        return PHPUnit\DbUnit\Operation\Factory::DELETE_ALL();
     }
 
   /**
@@ -82,14 +82,14 @@ class RoleActionAuthorisationServiceTest extends PHPUnit_Extensions_Database_Tes
     protected function getTearDownOperation()
     {
       // NONE is default
-        return PHPUnit_Extensions_Database_Operation_Factory::NONE();
+        return PHPUnit\DbUnit\Operation\Factory::NONE();
     }
 
   /**
   * Sets up the fixture, e.g create a new entityManager for each test run
   * This method is called before each test method is executed.
   */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->em = $this->createEntityManager();
@@ -97,7 +97,7 @@ class RoleActionAuthorisationServiceTest extends PHPUnit_Extensions_Database_Tes
   /**
    * Run after each test function to prevent pile-up of database connections.
    */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
         if (!is_null($this->em)) {
@@ -118,7 +118,7 @@ class RoleActionAuthorisationServiceTest extends PHPUnit_Extensions_Database_Tes
   * Called after setUp() and before each test. Used for common assertions
   * across all tests.
   */
-    protected function assertPreConditions()
+    protected function assertPreConditions(): void
     {
         $con = $this->getConnection();
         $fixture = __DIR__ . '/../../../doctrine/truncateDataTables.xml';

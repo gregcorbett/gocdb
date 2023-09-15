@@ -13,6 +13,8 @@
  * limitations under the License.
  */
 
+use PHPUnit\DbUnit\TestCase;
+
 require_once __DIR__.'/../../../../lib/Gocdb_Services/RoleActionMappingService.php';
 
 /**
@@ -21,48 +23,67 @@ require_once __DIR__.'/../../../../lib/Gocdb_Services/RoleActionMappingService.p
  *
  * @author David Meredith
  */
-class RoleActionMappingServiceTest extends PHPUnit_Framework_TestCase {
+class RoleActionMappingServiceTest extends PHPUnit\DbUnit\TestCase {
   /**
   * Called once, before any of the tests are executed.
   */
-  public static function setUpBeforeClass() {
+  public static function setUpBeforeClass(): void {
   }
 
   /**
   * Sets up the fixture, for example, opens a network connection.
   * This method is called before each test method is executed.
   */
-  protected function setUp() {
+  protected function setUp(): void {
   }
 
   /**
   * Like setUp(), this is called before each test method to
   * assert any pre-conditions required by tests.
   */
-  protected function assertPreConditions() {
+  protected function assertPreConditions(): void {
   }
 
-  protected function assertPostConditions() {
+  protected function assertPostConditions(): void {
   }
 
   /**
   * Tears down the fixture, for example, closes a network connection.
   * This method is called after a test is executed.
   */
-  protected function tearDown() {
+  protected function tearDown(): void {
   }
 
   /**
   * executed only once, after all the testing methods
   */
-  public static function tearDownAfterClass() {
+  public static function tearDownAfterClass(): void {
   }
 
-  protected function onNotSuccessfulTest(Exception $e) {
+  protected function onNotSuccessfulTest(Throwable $t): void {
     print __METHOD__ . "\n";
-    throw $e;
+    throw $t;
   }
 
+  /**
+   * Overridden. Returns the test database connection.
+   * @return PHPUnit\DbUnit\Database\DefaultConnection
+   */
+  protected function getConnection()
+  {
+      require_once dirname(__FILE__) . '/bootstrap_pdo.php';
+      return getConnectionToTestDB();
+  }
+
+  /**
+   * Overridden. Returns the test dataset.
+   * Defines how the initial state of the database should look before each test is executed.
+   * @return PHPUnit\DbUnit\DataSet\IDataSet
+   */
+  protected function getDataSet()
+  {
+      return $this->createFlatXMLDataSet(dirname(__FILE__) . '/truncateDataTables.xml');
+  }
 
   public function testValidateRoleActionMappingsAgainstSchema() {
     print __METHOD__ . "\n";

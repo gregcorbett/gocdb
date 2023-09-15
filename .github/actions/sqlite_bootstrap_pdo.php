@@ -12,12 +12,12 @@
 /**
  * Returns the database connection to your test databse.
  * Modify as required to return a connection to your test db.
- * @return PHPUnit_Extensions_Database_DB_IDatabaseConnection
+ * @return PHPUnit\DbUnit\Database\DefaultConnection
  */
 function getConnectionToTestDB() {
     $sqliteFile = '/tmp/gocdb.sqlite';
     $pdo = new PDO("sqlite:" . $sqliteFile);
-    return new PHPUnit_Extensions_Database_DB_DefaultDatabaseConnection($pdo, 'sqlite');
+    return new PHPUnit\DbUnit\Database\DefaultConnection($pdo, 'sqlite');
 }
 
 ?>

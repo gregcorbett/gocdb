@@ -5,7 +5,7 @@ This file is best viewed using a browser-plugin for markdown `.md` files.
 GocDB comes with a suite of tests that can be run to validate that Doctrine and
 your chosen database operate as expected. If the test suite fails against your
 chosen DB, then GocDB will not work as expected. It is therefore recommended
-that you run the DBUnit tests to ensure GocDB works as expected against your chosen DB.  
+that you run the DBUnit tests to ensure GocDB works as expected against your chosen DB.
 
 Install PhpUnit and DBUnit
 ---------------------------
@@ -20,20 +20,20 @@ If you see an error like the following, it is likely that you haven't installed 
 DBUnit extensions or the phpunit on the path does not have the DBUnit extensions.
 
 ```bash
-Fatal error: Class 'PHPUnit_Extensions_Database_TestCase' not found in ...<a test class file>...
+Fatal error: Class 'PHPUnit\DbUnit\TestCase' not found in ...<a test class file>...
 ```
 
 Install PDO Driver for your test DB
 ------------------------------------
-The tests require installation of the correct php PDO driver, see: http://php.net/manual/en/pdo.installation.php 
+The tests require installation of the correct php PDO driver, see: http://php.net/manual/en/pdo.installation.php
 PDO is used to assert that Doctrine performs the GocDB logic against your
 DB in the expected way. It uses Php Data Objects (PDO) to connect to your DB
-and runs plain SQL to perform assertions. 
+and runs plain SQL to perform assertions.
 
 ### OCIPDO for Oracle
 For unix derivative systems, the PDO driver for Oracle (normally) requires compiling into php, see: http://php.net/manual/en/ref.pdo-oci.php
-This is inconvenient and so the 'pdooci' util lib (https://github.com/taq/pdooci) is provided as a 'require-dev' dependency in the composer.json file (see INSTALL.md).  
-This util lib means you don't need to compile the driver --with-pdo-oci 
+This is inconvenient and so the 'pdooci' util lib (https://github.com/taq/pdooci) is provided as a 'require-dev' dependency in the composer.json file (see INSTALL.md).
+This util lib means you don't need to compile the driver --with-pdo-oci
 
 Deploy A Database For Testing
 --------------------------
@@ -51,9 +51,9 @@ Configure Doctrine and PDO for your Test DB
   and modify the connection details for the ***same test database***. This second
   file is used to assert that Doctrine performs the GocDB logic against your
   DB in the expected way. It uses Php Data Objects (PDO) to connect to your DB
-  and runs plain SQL to perform assertions.  
+  and runs plain SQL to perform assertions.
 
-Note that the two bootstrap files are linked: the PDOOCI\PDO class in bootstrap_pdo.php is made available by composer's vendor/autoload.php in bootstrap_doctrine.php. So the autoload MUST be uncommented.    
+Note that the two bootstrap files are linked: the PDOOCI\PDO class in bootstrap_pdo.php is made available by composer's vendor/autoload.php in bootstrap_doctrine.php. So the autoload MUST be uncommented.
 
 Deploy Tables/Schema via Doctrine
 ---------------------------------------

@@ -24,14 +24,14 @@ use Doctrine\ORM\EntityManager;
  * Abstract class for testing the Write API.
  *
  */
-abstract class AbstractWriteAPITestClass extends PHPUnit_Extensions_Database_TestCase
+abstract class AbstractWriteAPITestClass extends PHPUnit\DbUnit\TestCase
 {
     protected $em;
     protected $validAuthIdent = 'validIdentifierString';
 
   /**
   * Overridden. Returns the test database connection.
-  * @return PHPUnit_Extensions_Database_DB_IDatabaseConnection
+  * @return PHPUnit\DbUnit\Database\DefaultConnection
   */
     protected function getConnection()
     {
@@ -42,7 +42,7 @@ abstract class AbstractWriteAPITestClass extends PHPUnit_Extensions_Database_Tes
   /**
   * Overridden. Returns the test dataset.
   * Defines how the initial state of the database should look before each test is executed.
-  * @return PHPUnit_Extensions_Database_DataSet_IDataSet
+  * @return PHPUnit\DbUnit\DataSet\IDataSet
   */
     protected function getDataSet()
     {
@@ -59,7 +59,7 @@ abstract class AbstractWriteAPITestClass extends PHPUnit_Extensions_Database_Tes
       # Issue a DELETE from <table> which is more portable than a
       # TRUNCATE table <table> (some DBs require high privileges for truncate statements
       # and also do not allow truncates across tables with FK contstraints e.g. Oracle)
-        return PHPUnit_Extensions_Database_Operation_Factory::DELETE_ALL();
+        return PHPUnit\DbUnit\Operation\Factory::DELETE_ALL();
     }
 
   /**
@@ -68,14 +68,14 @@ abstract class AbstractWriteAPITestClass extends PHPUnit_Extensions_Database_Tes
     protected function getTearDownOperation()
     {
       # NONE is default
-        return PHPUnit_Extensions_Database_Operation_Factory::NONE();
+        return PHPUnit\DbUnit\Operation\Factory::NONE();
     }
 
   /**
   * Sets up the fixture, e.g create a new entityManager for each test run
   * This method is called before each test method is executed.
   */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->em = $this->createEntityManager();
@@ -83,7 +83,7 @@ abstract class AbstractWriteAPITestClass extends PHPUnit_Extensions_Database_Tes
   /**
    * Run after each test function to prevent pile-up of database connections.
    */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
         if (!is_null($this->em)) {
@@ -104,7 +104,7 @@ abstract class AbstractWriteAPITestClass extends PHPUnit_Extensions_Database_Tes
   * Called after setUp() and before each test. Used for common assertions
   * across all tests.
   */
-    protected function assertPreConditions()
+    protected function assertPreConditions(): void
     {
         $con = $this->getConnection();
         $fixture = __DIR__ . '/../doctrine/truncateDataTables.xml';
