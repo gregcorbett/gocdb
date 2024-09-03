@@ -62,50 +62,71 @@ $totalCount = $siteCount + $ngiCount + $serviceCount +$serviceGroupsCount;
         </div>
     <?php endif; ?>
 
+    <script>
+        $(document).ready(function()
+            {
+                // sort on first and second table cols only (we start counting zero)
+                $("#selectedNgisTable").tablesorter({
+                    headers: {
+                    // don't sort on the 0th column
+                    0: {
+                        sorter: false
+                    }
+                    }
+                });
+            }
+        );
+    </script>
+
     <!--  NGIs -->
-    <div class="tableContainer" style="width: 99.5%; float: left; margin-top: 3em; margin-right: 10px;">
-        <span class="header" style="vertical-align:middle; float: left; padding-top: 0.9em; padding-left: 1em;">
+    <div class="listContainer">
+        <span class="header listHeader">
             There <?php if($ngiCount==1){echo "is";}else{echo "are";}?> <?php if ($ngiCount == 0){echo "no";} else{echo $ngiCount;} ?> NGI<?php if($ngiCount != 1) echo "s"?> with this scope
         </span>
 
         <img src="<?php echo \GocContextPath::getPath()?>img/ngi.png" class="decoration" />
 
         <?php if ($ngiCount != 0): ?>
-            <table style="clear: both; width: 100%;">
-                <tr class="site_table_row_1">
-                    <th></th>
-                    <th class="site_table">Name</th>
-                    <th class="site_table">Description</th>
-                </tr>
+            <table id="selectedNgisTable" class="table table-striped table-condensed tablesorter">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach($params['NGIs'] as $ngi) {
+                    ?>
+                    <tr>
+                        <td style="width: 10%">
+                            <img class="flag" style="vertical-align: middle" src="<?php echo \GocContextPath::getPath()?>img/ngi/<?php echo $ngi->getName() ?>.jpg">
+                        </td>
+                        <td>
+                            <a href="index.php?Page_Type=NGI&amp;id=<?php echo $ngi->getId() ?>">
+                                <?php xecho($ngi->getName()); ?>
+                            </a>
+                        </td>
+                        <td><?php xecho($ngi->getDescription()) ?></td>
+                    </tr>
+                    <?php
+                    } // End of the foreach loop iterating over NGIs
+                    ?>
+                </tbody>
 
-                <?php
-                $num = 2;
-
-                foreach($params['NGIs'] as $ngi) {
-                ?>
-
-                <tr class="site_table_row_<?php echo $num ?>">
-                    <td style="width: 10%">
-                    <img class="flag" style="vertical-align: middle" src="<?php echo \GocContextPath::getPath()?>img/ngi/<?php echo $ngi->getName() ?>.jpg">
-                    </td>
-                    <td class="site_table">
-                        <div style="background-color: inherit;">
-                            <span style="vertical-align: middle;">
-                                <a href="index.php?Page_Type=NGI&amp;id=<?php echo $ngi->getId() ?>">
-                                    <?php xecho($ngi->getName()); ?>
-                                </a>
-                            </span>
-                        </div>
-                    </td>
-                    <td class="site_table"><?php xecho($ngi->getDescription()) ?></td>
-                </tr>
-                <?php
-                    if($num == 1) { $num = 2; } else { $num = 1; }
-                } // End of the foreach loop iterating over SEs
-                ?>
             </table>
         <?php else: echo "<br><br>&nbsp &nbsp"; endif; ?>
     </div>
+
+    <script>
+        $(document).ready(function()
+            {
+            // sort on first and second table cols only
+                $("#selectedSETable").tablesorter({});
+            }
+        );
+    </script>
 
     <!--  Sites -->
     <div class="listContainer">
@@ -114,40 +135,46 @@ $totalCount = $siteCount + $ngiCount + $serviceCount +$serviceGroupsCount;
         </span>
         <img src="<?php echo \GocContextPath::getPath()?>img/site.png" class="decoration" />
         <?php if($siteCount > 0): ?>
-            <table class="vSiteResults" id="selectedSETable">
-                <tr class="site_table_row_1">
-                    <th class="site_table">Name</th>
-                    <th class="site_table">Certification Status</th>
-                    <th class="site_table">Production Status</th>
-                </tr>
-                <?php
-                $num = 2;
-
-                foreach($params['Sites'] as $site) {
-                ?>
-                <tr class="site_table_row_<?php echo $num ?>">
-                    <td class="site_table" style="width: 30%">
-                        <div style="background-color: inherit;">
-                            <span style="vertical-align: middle;">
-                                <a href="index.php?Page_Type=Site&amp;id=<?php echo $site->getId() ?>">
-                                    <?php xecho($site->getShortName()); ?>
-                                </a>
-                            </span>
-                        </div>
-                    </td>
-
-                    <td class="site_table">
-                        <?php xecho($site->getCertificationStatus()->getName()) ?>
-                    </td>
-
-                    <td class="site_table">
-                        <?php xecho($site->getInfrastructure()->getName()) ?>
-                    </td>
-                </tr>
-                <?php if($num == 1) { $num = 2; } else { $num = 1; }}?>
+            <table class="table table-striped table-condensed tablesorter"" id="selectedSETable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Certification Status</th>
+                        <th>Production Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach($params['Sites'] as $site) {
+                    ?>
+                    <tr>
+                        <td>
+                            <a href="index.php?Page_Type=Site&amp;id=<?php echo $site->getId() ?>">
+                                <?php xecho($site->getShortName()); ?>
+                            </a>
+                        </td>
+                        <td>
+                            <?php xecho($site->getCertificationStatus()->getName()) ?>
+                        </td>
+                        <td>
+                            <?php xecho($site->getInfrastructure()->getName()) ?>
+                        </td>
+                    </tr>
+                    <?php
+                    } // End of the foreach loop iterating over Sites
+                    ?>
+                </tbody>
             </table>
         <?php endif;?>
     </div>
+
+    <script>
+        $(document).ready(function()
+            {
+                $("#selectedServiceGroupTable").tablesorter({});
+            }
+        );
+    </script>
 
     <!--  Service Groups -->
     <div class="listContainer">
@@ -156,36 +183,31 @@ $totalCount = $siteCount + $ngiCount + $serviceCount +$serviceGroupsCount;
         </span>
         <img src="<?php echo \GocContextPath::getPath()?>img/virtualSite.png" class="decoration" />
         <?php if($serviceGroupsCount>0): ?>
-            <table class="vSiteResults" id="selectedSETable">
-                <tr class="site_table_row_1">
-                    <th class="site_table">Name</th>
-                    <th class="site_table">Description</th>
-                </tr>
-                <?php
-                $num = 2;
-                foreach($serviceGroups as $sGroup) {
-                ?>
-                <?php if($sGroup->getScopes()->first()->getName() == "Local") { $style = " style=\"background-color: #A3D7A3;\""; } else { $style = ""; } ?>
-                <tr class="site_table_row_<?php echo $num ?>" <?php echo $style ?>>
-                    <td class="site_table">
-                        <div style="background-color: inherit;">
-                            <span style="vertical-align: middle;">
+            <table class="table table-striped table-condensed tablesorter" id="selectedServiceGroupTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach($serviceGroups as $sGroup) {
+                    ?>
+                        <tr>
+                            <td>
                                 <a href="index.php?Page_Type=Service_Group&amp;id=<?php echo $sGroup->getId()?>">
-                                   <?php xecho($sGroup->getName()); ?>
+                                    <?php xecho($sGroup->getName()); ?>
                                 </a>
-                            </span>
-                        </div>
-                    </td>
-
-                    <td class="site_table">
-                        <?php xecho($sGroup->getDescription()); ?>
-                    </td>
-
-                </tr>
-                <?php
-                    if($num == 1) { $num = 2; } else { $num = 1; }
-                    } // End of the foreach loop iterating over SEs
-                ?>
+                            </td>
+                            <td>
+                                <?php xecho($sGroup->getDescription()); ?>
+                            </td>
+                        </tr>
+                    <?php
+                        } // End of the foreach loop iterating over Service Groups
+                    ?>
+                </tbody>
             </table>
         <?php endif; ?>
     </div>
@@ -197,7 +219,7 @@ $totalCount = $siteCount + $ngiCount + $serviceCount +$serviceGroupsCount;
         </span>
         <img src="<?php echo \GocContextPath::getPath()?>img/service.png" class="decoration" />
         <?php if($serviceCount>0): ?>
-            <table class="vSiteResults" id="selectedSETable">
+            <table class="vSiteResults">
                 <tr class="site_table_row_1">
                     <td class="site_table">
                         <a href="index.php?Page_Type=Services&amp;mscope[]=<?php xecho($name)?>">
