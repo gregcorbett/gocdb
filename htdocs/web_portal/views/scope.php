@@ -67,9 +67,8 @@ $totalCount = $siteCount + $ngiCount + $serviceCount +$serviceGroupsCount;
         <span class="header" style="vertical-align:middle; float: left; padding-top: 0.9em; padding-left: 1em;">
             There <?php if($ngiCount==1){echo "is";}else{echo "are";}?> <?php if ($ngiCount == 0){echo "no";} else{echo $ngiCount;} ?> NGI<?php if($ngiCount != 1) echo "s"?> with this scope
         </span>
-<!--
-        <img src="<?php echo \GocContextPath::getPath()?>img/NGI.png" height="25px" style="float: right; padding-right: 1em; padding-top: 0.5em; padding-bottom: 0.5em;" />
-        -->
+
+        <img src="<?php echo \GocContextPath::getPath()?>img/ngi.png" class="decoration" />
 
         <?php if ($ngiCount != 0): ?>
             <table style="clear: both; width: 100%;">
