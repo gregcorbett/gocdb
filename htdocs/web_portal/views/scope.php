@@ -93,13 +93,12 @@ $totalCount = $siteCount + $ngiCount + $serviceCount +$serviceGroupsCount;
                         <div style="background-color: inherit;">
                             <span style="vertical-align: middle;">
                                 <a href="index.php?Page_Type=NGI&amp;id=<?php echo $ngi->getId() ?>">
-                                    <span>&nbsp;&nbsp;</span><?php xecho($ngi->getName()); ?>
+                                    <?php xecho($ngi->getName()); ?>
                                 </a>
                             </span>
                         </div>
                     </td>
                     <td class="site_table"><?php xecho($ngi->getDescription()) ?></td>
-
                 </tr>
                 <?php
                     if($num == 1) { $num = 2; } else { $num = 1; }
@@ -132,7 +131,7 @@ $totalCount = $siteCount + $ngiCount + $serviceCount +$serviceGroupsCount;
                         <div style="background-color: inherit;">
                             <span style="vertical-align: middle;">
                                 <a href="index.php?Page_Type=Site&amp;id=<?php echo $site->getId() ?>">
-                                    <span>&nbsp;&nbsp;</span><?php xecho($site->getShortName()); ?>
+                                    <?php xecho($site->getShortName()); ?>
                                 </a>
                             </span>
                         </div>
