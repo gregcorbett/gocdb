@@ -74,6 +74,7 @@ $totalCount = $siteCount + $ngiCount + $serviceCount +$serviceGroupsCount;
         <?php if ($ngiCount != 0): ?>
             <table style="clear: both; width: 100%;">
                 <tr class="site_table_row_1">
+                    <th></th>
                     <th class="site_table">Name</th>
                     <th class="site_table">Description</th>
                 </tr>
@@ -85,11 +86,13 @@ $totalCount = $siteCount + $ngiCount + $serviceCount +$serviceGroupsCount;
                 ?>
 
                 <tr class="site_table_row_<?php echo $num ?>">
+                    <td style="width: 10%">
+                    <img class="flag" style="vertical-align: middle" src="<?php echo \GocContextPath::getPath()?>img/ngi/<?php echo $ngi->getName() ?>.jpg">
+                    </td>
                     <td class="site_table">
                         <div style="background-color: inherit;">
                             <span style="vertical-align: middle;">
                                 <a href="index.php?Page_Type=NGI&amp;id=<?php echo $ngi->getId() ?>">
-                                    <img class="flag" style="vertical-align: middle" src="<?php echo \GocContextPath::getPath()?>img/ngi/<?php echo $ngi->getName() ?>.jpg">
                                     <span>&nbsp;&nbsp;</span><?php xecho($ngi->getName()); ?>
                                 </a>
                             </span>
