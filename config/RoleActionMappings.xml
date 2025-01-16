@@ -218,6 +218,7 @@
                 <Target>Project</Target>
                 <Target>Ngi</Target>
                 <Target>Site</Target>
+                <Target>ServiceGroup</Target>
             </EnabledActions>
         </RoleMapping>
 
