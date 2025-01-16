@@ -209,6 +209,7 @@
                 <RoleRef idRef="SITE_SECOFFICER"/>
                 <RoleRef idRef="SITE_OPS_DEP_MAN"/>
                 <RoleRef idRef="SITE_OPS_MAN"/>
+                <RoleRef idRef="SERVICE_GROUP_ADMIN"/>
             </Roles>
             <EnabledActions>
                 <Actions>
