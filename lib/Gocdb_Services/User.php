@@ -153,6 +153,15 @@ class User extends AbstractEntityService
             return true;
         }
 
+	// No project was found with an authorisation.
+	// Check suitable role at a ServiceGroup
+	
+        $service_groups = $this->getSGroupsFromRoles($user, \RoleStatus::GRANTED);
+
+        if ($this->checkAllowReadPD($user, $service_groups)) {
+            return true;
+        }
+
         return false;
     }
     /**
