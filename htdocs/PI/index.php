@@ -395,10 +395,8 @@ class PIRequest
         require_once __DIR__ . '/../web_portal/controllers/utils.php';
         require_once __DIR__ . '/../../lib/Doctrine/entities/APIAuthentication.php';
 
-        if (empty($this->identifier)) {
-            throw new \Exception("No valid identifier found. Try accessing the " .
-                    "resource through the private interface.");
-        }
+        // Reuse check that an identifier has been provided.
+        $this->authByAnyIdentifier();
 
         $admin = false;
         $authenticated = false;
