@@ -4,6 +4,8 @@ namespace org\gocdb\services;
 
 use Factory;
 use LogicException;
+use org\gocdb\security\authentication\AuthenticationException;
+use org\gocdb\security\authentication\AuthorizationException;
 
 /* ______________________________________________________
  * ======================================================
@@ -374,10 +376,21 @@ class PIRequest
                     break;
                 //case "get_role_action_mappings":
                 default:
+                    http_response_code(400);
                     die("Unable to find method: {$this->method}");
                     break;
             }
-        } catch (\Exception $e) {
+        }
+        catch (AuthenticationException $e) {
+            http_response_code(401);
+            die($e->getMessage());
+        }
+        catch (AuthorizationException $e) {
+            http_response_code(403);
+            die($e->getMessage());
+        }
+        catch (\Exception $e) {
+            http_response_code(500);
             die($e->getMessage());
         }
         return $xml;
@@ -429,16 +442,19 @@ class PIRequest
             list($admin, $authenticated) = getReadPDParams($user);
         }
         if (!($admin || $authenticated)) {
-            throw new \Exception("Authorisation required to read personal data (" . getInfoMessage() . "). ");
+            throw new AuthorizationException(
+                "Authorisation required to read personal data (" .
+                getInfoMessage() .
+                "). ");
         }
     }
 
     private function authByAnyIdentifier()
     {
         if (empty($this->identifier)) {
-            throw new \Exception(
-                "No valid identifier found. Try accessing the resource " .
-                "through the private interface."
+            throw new AuthenticationException(null,
+                    "No valid identifier found. Try accessing the resource " .
+                    "through the private interface."
             );
         }
     }
