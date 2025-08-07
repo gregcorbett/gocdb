@@ -38,6 +38,7 @@ $sectionBreak = "=========================================================\n";
 $em = $entityManager;
 
 echo "Querying for all sites\n";
+// Fetch all Sites using a Doctrine Query Language (DQL) query.
 $siteDql = "SELECT s FROM Site s";
 $allSitesList = $entityManager->createQuery($siteDql)->getResult();
 
