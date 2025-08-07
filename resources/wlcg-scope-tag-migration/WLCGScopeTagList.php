@@ -1,8 +1,7 @@
 <?php
 
 /*
- * A simple script to home some variables useful for the WLCG Scope tag
- * migration.
+ * A simple script to store variables useful for the WLCG Scope tag migration.
  */
 
 $wlcgScopesList = ["alice", "atlas", "belle", "cms", "dune", "lhcb"];
