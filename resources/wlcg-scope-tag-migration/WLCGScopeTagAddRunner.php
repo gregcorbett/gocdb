@@ -52,34 +52,41 @@ foreach ($allSitesList as $site) {
     // Sites can support multiple CERN VOs - at any and multiple tiers.
     // Check each combination in turn.
     foreach ($wlcgScopesList as $wlcgScope) {
-        foreach ($tierScopesList as $tierScope) {
-            if (
-                (in_array($wlcgScope, $siteScopes)) &&
-                (in_array($tierScope, $siteScopes))
-            ) {
-                $newScopeName = $wlcgScope . "." . $tierScope;
+        // If the WLCG scope in question this iteration is not applied to the
+        // site, no need to check tier scopes.
+        if (!in_array($wlcgScope, $siteScopes)) {
+            continue;
+        }
 
-                // check if new scope has been already applied
-                // (from a previous run).
-                if (in_array($newScopeName, $siteScopes)) {
-                    echo "Skipping, site already has " . $newScopeName . "\n";
-                    continue;
-                } else {
-                    // apply new scope tag in a transaction.
-                    $em->getConnection()->beginTransaction();
-                    try {
-                        // need the object not the name to add to a site.
-                        $site->addScope($allScopeDict[$newScopeName]);
-                        $em->merge($site);
-                        $em->flush();
-                        $em->getConnection()->commit();
-                        echo "Added " . $newScopeName . "\n";
-                    } catch (\Exception $ex) {
-                        $em->getConnection()->rollback();
-                        $em->close();
-                        throw $ex;
-                    }
-                }
+        foreach ($tierScopesList as $tierScope) {
+            if (!in_array($tierScope, $siteScopes)) {
+                // If the tier scope in question this iteration is not applied
+                // to the site, no need to progress any further.
+                continue;
+            }
+
+            $newScopeName = $wlcgScope . "." . $tierScope;
+
+            // check if new scope has been already applied
+            // (from a previous run).
+            if (in_array($newScopeName, $siteScopes)) {
+                echo "Skipping, site already has " . $newScopeName . "\n";
+                continue;
+            }
+
+            // apply new scope tag in a transaction.
+            $em->getConnection()->beginTransaction();
+            try {
+                // need the object not the name to add to a site.
+                $site->addScope($allScopeDict[$newScopeName]);
+                $em->merge($site);
+                $em->flush();
+                $em->getConnection()->commit();
+                echo "Added " . $newScopeName . "\n";
+            } catch (\Exception $ex) {
+                $em->getConnection()->rollback();
+                $em->close();
+                throw $ex;
             }
         }
     }
