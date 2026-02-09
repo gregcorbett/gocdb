@@ -9,7 +9,8 @@ require_once __DIR__ . "/../../../lib/Gocdb_Services/Factory.php";
 require_once __DIR__ . "/../../../lib/Gocdb_Services/Config.php";
 
 define("TEST_1", "GOCDB5 DB connection");
-define("TEST_2", "GOCDBPI_v5 availability");
+define("TEST_2", "GOCDBPI Public v5 availability");
+define("TEST_5", "GOCDBPI Private v5 availability");
 define("TEST_3", "GOCDB5 central portal availability");
 define("TEST_4", "GOCDB5 server configuration validity");
 
@@ -35,7 +36,8 @@ $test_statuses =  array(
     TEST_1  => UKN,
     TEST_2  => UKN,
     TEST_3  => UKN,
-    TEST_4  => UKN
+    TEST_4  => UKN,
+    TEST_5  => UKN,
 );
 
 $test_desc =  array(
@@ -43,19 +45,21 @@ $test_desc =  array(
         "Connect to GOCDB5 (RAL/master instance) from this " .
         "machine using EntityManager->getConnection()->connect()",
     TEST_2 =>
-        "Retrieve https://goc.egi.eu/gocdbpi/?" .
-        "method=get_site_list&sitename=RAL-LCG2 using PHP CURL",
+        "Retrieve /?method=get_site_list using PHP CURL",
     TEST_3 =>
         "N/A",
     TEST_4 =>
-        "Server XML configuration validation."
+        "Server XML configuration validation.",
+    TEST_5 =>
+        "Retrieve /?method=get_site_list using PHP CURL",
 );
 
 $test_messages =  array(
     TEST_1 => UKNMSG,
     TEST_2 => UKNMSG,
     TEST_3 => UKNMSG,
-    TEST_4 => UKNMSG
+    TEST_4 => UKNMSG,
+    TEST_5 => UKNMSG,
 );
 
 $disp = array(
@@ -75,8 +79,10 @@ function get_test_counts($config)
         // Only define test URLs if the config is valid
         define_test_urls($config);
 
-        $res[2] = test_url(PI_URL);
-        $res[3] = test_url(SERVER_BASE_URL);
+        $res[2] = test_url(PUBLIC_PI_URL, false);
+        $res[5] = test_url(PRIVATE_PI_URL, true);
+        $res[3] = test_url(SERVER_BASE_URL, false);
+        
     }
 
     $counts = array("ok" => 0,
@@ -98,12 +104,11 @@ function define_test_urls(\org\gocdb\services\config $config)
 
     list($serverBaseURL, $webPortalURL, $piURL) = $config->getURLs();
 
-    define("PI_URL", $piURL . get_testPiMethod());
+    define("PUBLIC_PI_URL", $piURL . get_testPiMethod("public"));
+    define("PRIVATE_PI_URL", $piURL . get_testPiMethod("private"));
     define("PORTAL_URL", $webPortalURL);
     define("SERVER_BASE_URL", $serverBaseURL);
 
-    //define("SERVER_SSLCERT", "/etc/grid-security/hostcert.pem");
-    //define("SERVER_SSLKEY", "/etc/pki/tls/private/hostkey.pem");
 }
 
 // Test the connection to the database using Doctrine
@@ -130,11 +135,11 @@ function test_db_connection()
     return $retval;
 }
 
-function test_url($url)
+function test_url($url, $useClientAuth)
 {
     $retval = [];
     try {
-        get_https2($url);
+        get_https2($url, $useClientAuth);
         $retval["status"] = OK;
         $retval["message"] = OKMSG;
     } catch (Exception $exception) {
@@ -146,8 +151,9 @@ function test_url($url)
     return $retval;
 }
 
-function get_https2($url)
+function get_https2($url, $useClientAuth)
 {
+
     $curloptions = array (
         // In addition to transfer failures, check inside the HTTP response for an error
         // response code (HTTP > 400)
@@ -174,9 +180,10 @@ function get_https2($url)
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_CAPATH => '/etc/grid-security/certificates/'
     );
-    if (defined('SERVER_SSLCERT') && defined('SERVER_SSLKEY')) {
-        $curloptions[CURLOPT_SSLCERT] = constant("SERVER_SSLCERT");
-        $curloptions[CURLOPT_SSLKEY] = constant("SERVER_SSLKEY");
+
+    if ( $useClientAuth ) {
+        $curloptions[CURLOPT_SSLCERT] = "/etc/grid-security/hostcert.pem";
+        $curloptions[CURLOPT_SSLKEY] = "/etc/grid-security/hostkey.pem";
     }
 
     $handle = curl_init();
@@ -202,12 +209,12 @@ function get_https2($url)
     return $return;
 }
 
-function get_testPiMethod()
+function get_testPiMethod($interface)
 {
-    return  "/public/?method=get_site_list";
+    return  "/" . $interface . "/?method=get_site_list";
 }
 /**
- * Run the standard 3 GOCDB monitoring tests
+ * Run the standard 5 GOCDB monitoring tests
  *
  * @param   string    &$message     Returned error messages or ''
  * @return  int                     Count of failed tests
@@ -224,15 +231,28 @@ function run_tests(&$message)
         $messages[] = $res["message"];
     }
 
-    $res = test_url(Factory::getConfigService()->GetPiUrl() .
-                    get_testPiMethod());
+    $res = test_url(
+        Factory::getConfigService()->GetPiUrl() . get_testPiMethod("public"),
+        false,
+    );
 
     if ($res["status"] != "ok") {
         $errorCount++;
-        $messages[] = "PI interface test failed: " . $res["message"];
+        $messages[] = "PI public interface test failed: " . $res["message"];
     }
 
-    $res = test_url(Factory::getConfigService()->GetPortalURL());
+
+    $res = test_url(
+        Factory::getConfigService()->GetPiUrl() . get_testPiMethod("private"),
+        true,
+    );
+
+    if ($res["status"] != "ok") {
+        $errorCount++;
+        $messages[] = "PI private interface test failed: " . $res["message"];
+    }
+
+    $res = test_url(Factory::getConfigService()->GetPortalURL(), false);
 
     if ($res["status"] != "ok") {
         $errorCount++;

@@ -20,18 +20,26 @@ $test_messages[TEST_4] = $res["message"];
 // Following tests depend on the config file being valid.
 if (strcasecmp($res["status"], OK) == 0) {
     define_test_urls($config);
-    // GOCDBPI v5
-    $res = test_url(PI_URL);
+
+    // GOCDBPI Public API - v5
+    $res = test_url(PUBLIC_PI_URL, false);
     $test_statuses[TEST_2] = $res["status"];
     $test_messages[TEST_2] = $res["message"];
+
+    // GOCDBPI Private API - v5
+    $res = test_url(PRIVATE_PI_URL, true);
+    $test_statuses[TEST_5] = $res["status"];
+    $test_messages[TEST_5] = $res["message"];
+
     // GOCDB5 web portal
-    $res = test_url(SERVER_BASE_URL);
+    $res = test_url(SERVER_BASE_URL, false);
     $test_statuses[TEST_3] = $res["status"];
     $test_messages[TEST_3] = $res["message"];
 
     // DISPLAY RESULTS
     echo "<p>URLs as defined by local_info.xml</p>";
-    echo "<p>PI URL is: " . PI_URL . "</p>";
+    echo "<p>Public PI URL is: " . PUBLIC_PI_URL . "</p>";
+    echo "<p>Private PI URL is: " . PRIVATE_PI_URL . "</p>";
     echo "<p>Portal URl is: " . PORTAL_URL . "</p>";
     echo "<p>Server Base URL is: " . SERVER_BASE_URL . "</p>";
 } else {
