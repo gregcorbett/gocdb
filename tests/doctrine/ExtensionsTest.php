@@ -258,8 +258,8 @@ class ExtensionsTest extends \PHPUnit\Framework\TestCase
         $servId = $service->getId();
 
         $result = $con->query(
-            "SELECT * FROM Service_Properties"
-            . " WHERE PARENTSERVICE_ID = '$servId'"
+            "SELECT * FROM Service_Properties " .
+            "WHERE PARENTSERVICE_ID = '$servId'"
         )->fetchAll();
       //Assert that only 2 service properties exist in the database for this service
         $this->assertEquals(2, count($result));
@@ -276,8 +276,8 @@ class ExtensionsTest extends \PHPUnit\Framework\TestCase
 
       //Check properties are gone
         $result = $con->query(
-            "SELECT * FROM Service_Properties"
-            . " WHERE PARENTSERVICE_ID = '$servId'"
+            "SELECT * FROM Service_Properties " .
+            "WHERE PARENTSERVICE_ID = '$servId'"
         )->fetchAll();
         $this->assertEquals(0, count($result));
     }
@@ -369,8 +369,8 @@ class ExtensionsTest extends \PHPUnit\Framework\TestCase
         $sgId = $sg->getId();
 
         $result = $con->query(
-            "SELECT * FROM ServiceGroup_Properties"
-            . " WHERE PARENTSERVICEGROUP_ID = '$sgId'"
+            "SELECT * FROM ServiceGroup_Properties " .
+            "WHERE PARENTSERVICEGROUP_ID = '$sgId'"
         )->fetchAll();
       //Assert that only 2 service group properties exist in the database for this service
         $this->assertEquals(2, count($result));
@@ -387,8 +387,8 @@ class ExtensionsTest extends \PHPUnit\Framework\TestCase
 
       //Check properties are gone
         $result = $con->query(
-            "SELECT * FROM ServiceGroup_Properties"
-            . " WHERE PARENTSERVICEGROUP_ID = '$sgId'"
+            "SELECT * FROM ServiceGroup_Properties " .
+            "WHERE PARENTSERVICEGROUP_ID = '$sgId'"
         )->fetchAll();
         $this->assertEquals(0, count($result));
     }
@@ -472,8 +472,8 @@ class ExtensionsTest extends \PHPUnit\Framework\TestCase
         $endpointId = $endpoint->getId();
 
         $result = $con->query(
-            "SELECT * FROM Endpoint_Properties"
-            . " WHERE PARENTENDPOINT_ID = '$endpointId'"
+            "SELECT * FROM Endpoint_Properties " .
+            "WHERE PARENTENDPOINT_ID = '$endpointId'"
         )->fetchAll();
       //Assert that only 2 service properties exist in the database for this service
         $this->assertEquals(2, count($result));
@@ -491,8 +491,8 @@ class ExtensionsTest extends \PHPUnit\Framework\TestCase
 
       //Check properties are gone
         $result = $con->query(
-            "SELECT * FROM Endpoint_Properties"
-            . " WHERE PARENTENDPOINT_ID = '$endpointId'"
+            "SELECT * FROM Endpoint_Properties " .
+            "WHERE PARENTENDPOINT_ID = '$endpointId'"
         )->fetchAll();
         $this->assertEquals(0, count($result));
     }

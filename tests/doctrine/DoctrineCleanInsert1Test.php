@@ -354,11 +354,13 @@ class DoctrineCleanInsert1Test extends \PHPUnit\Framework\TestCase
         $this->assertTrue(count($site->getScopes()) == $n);
 
         $testConn = $this->getConnection();
-        $result = $testConn->query("SELECT Sites.id FROM Sites
-       inner join Sites_Scopes
-       on Sites.id = Sites_Scopes.site_id
-       inner join Scopes
-       on Scopes.id = Sites_Scopes.scope_id")->fetchAll();
+        $result = $testConn->query(
+            "SELECT Sites.id FROM Sites " .
+            "inner join Sites_Scopes " .
+            "on Sites.id = Sites_Scopes.site_id " .
+            "inner join Scopes " .
+            "on Scopes.id = Sites_Scopes.scope_id"
+        )->fetchAll();
         $this->assertTrue(count($result) == $n);
     }
 
@@ -378,11 +380,13 @@ class DoctrineCleanInsert1Test extends \PHPUnit\Framework\TestCase
         $this->assertTrue(count($se->getScopes()) == $n);
 
         $testConn = $this->getConnection();
-        $result = $testConn->query("SELECT Services.id FROM Services
-       inner join Services_Scopes
-       on Services.id = Services_Scopes.service_id
-       inner join Scopes
-       on Scopes.id = Services_Scopes.scope_id")->fetchAll();
+        $result = $testConn->query(
+            "SELECT Services.id FROM Services " .
+            "inner join Services_Scopes " .
+            "on Services.id = Services_Scopes.service_id " .
+            "inner join Scopes " .
+            "on Scopes.id = Services_Scopes.scope_id"
+        )->fetchAll();
         $this->assertTrue(count($result) == $n);
     }
 
