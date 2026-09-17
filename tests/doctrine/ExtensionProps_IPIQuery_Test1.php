@@ -30,7 +30,6 @@ require_once dirname(__FILE__) . '/../../lib/Gocdb_Services/Factory.php';
  */
 class ExtensionProps_IPIQuery_Test1 extends \PHPUnit\Framework\TestCase
 {
-
     private $em;
 
     /**

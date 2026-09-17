@@ -29,7 +29,6 @@ use Doctrine\ORM\EntityManager;
  */
 class RoleActionRecordTests extends \PHPUnit\Framework\TestCase
 {
-
     private $em;
 
     /**

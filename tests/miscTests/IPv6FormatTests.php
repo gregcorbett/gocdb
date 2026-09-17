@@ -12,8 +12,6 @@ require_once __DIR__.'/../../lib/Gocdb_Services/validation/IPv6Validator.php';
  */
 class IPv6FormatTests extends \PHPUnit\Framework\TestCase
 {
-
-
     /**
      * Called once, before any of the tests are executed.
      */

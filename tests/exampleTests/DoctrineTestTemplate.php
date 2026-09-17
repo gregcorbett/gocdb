@@ -17,7 +17,6 @@ require_once dirname(__FILE__) . '/bootstrap.php';
  */
 class DoctrineTestTemplate extends \PHPUnit\Framework\TestCase
 {
-
     private $em;
 
      /**
