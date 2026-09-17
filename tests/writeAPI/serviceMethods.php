@@ -46,7 +46,8 @@ class WriteAPIserviceMethodsTests extends extensionPropertyAbstract {
   /**
   * Overridden.
   */
-  public static function setUpBeforeClass(): void {
+  public static function setUpBeforeClass(): void
+  {
     parent::setUpBeforeClass();
     echo "\n\n-------------------------------------------------\n";
     echo "Executing WriteAPIserviceMethodsTests. . .\n";

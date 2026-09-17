@@ -27,14 +27,16 @@ require_once dirname(__FILE__) . '/../../lib/Gocdb_Services/Factory.php';
  *
  * @author David Meredith
  */
-class ExtensionProps_IPIQuery_Test1 extends \PHPUnit\Framework\TestCase {
+class ExtensionProps_IPIQuery_Test1 extends \PHPUnit\Framework\TestCase
+{
 
     private $em;
 
     /**
      * Overridden.
      */
-    public static function setUpBeforeClass(): void {
+    public static function setUpBeforeClass(): void
+    {
         parent::setUpBeforeClass();
         echo "\n\n-------------------------------------------------\n";
         echo "Executing ExtensionProps_IPIQuery_Test1. . .\n";
@@ -53,7 +55,8 @@ class ExtensionProps_IPIQuery_Test1 extends \PHPUnit\Framework\TestCase {
      * Sets up the fixture, e.g create a new entityManager for each test run
      * This method is called before each test method is executed.
      */
-    protected function setUp(): void {
+    protected function setUp(): void
+    {
         parent::setUp();
         $this->em = $this->createEntityManager();
         (new \Doctrine\Common\DataFixtures\Purger\ORMPurger($this->em))->purge();
@@ -71,7 +74,8 @@ class ExtensionProps_IPIQuery_Test1 extends \PHPUnit\Framework\TestCase {
      * Called after setUp() and before each test. Used for common assertions
      * across all tests.
      */
-    protected function assertPreConditions(): void {
+    protected function assertPreConditions(): void
+    {
         $con = $this->getConnection();
         $fixture = dirname(__FILE__) . '/truncateDataTables.xml';
         $tables = simplexml_load_file($fixture);

@@ -26,14 +26,16 @@ use Doctrine\ORM\EntityManager;
  *
  * @author David Meredith
  */
-class RoleActionRecordTests extends \PHPUnit\Framework\TestCase {
+class RoleActionRecordTests extends \PHPUnit\Framework\TestCase
+{
 
     private $em;
 
     /**
      * Overridden.
      */
-    public static function setUpBeforeClass(): void {
+    public static function setUpBeforeClass(): void
+    {
         parent::setUpBeforeClass();
         echo "\n\n-------------------------------------------------\n";
         echo "Executing RoleActionRecordTests. . .\n";
@@ -52,7 +54,8 @@ class RoleActionRecordTests extends \PHPUnit\Framework\TestCase {
      * Sets up the fixture, e.g create a new entityManager for each test run
      * This method is called before each test method is executed.
      */
-    protected function setUp(): void {
+    protected function setUp(): void
+    {
         parent::setUp();
         $this->em = $this->createEntityManager();
         (new \Doctrine\Common\DataFixtures\Purger\ORMPurger($this->em))->purge();
@@ -71,7 +74,8 @@ class RoleActionRecordTests extends \PHPUnit\Framework\TestCase {
      * Called after setUp() and before each test. Used for common assertions
      * across all tests.
      */
-    protected function assertPreConditions(): void {
+    protected function assertPreConditions(): void
+    {
         $con = $this->getConnection();
         $fixture = dirname(__FILE__) . '/truncateDataTables.xml';
         $tables = simplexml_load_file($fixture);

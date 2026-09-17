@@ -20,7 +20,8 @@
  *
  * @author David Meredith
  */
-class DateTimeConvertTests extends \PHPUnit\Framework\TestCase {
+class DateTimeConvertTests extends \PHPUnit\Framework\TestCase
+{
     //put your code here
 
     const FORMAT = 'd/m/Y H:i';
@@ -28,7 +29,8 @@ class DateTimeConvertTests extends \PHPUnit\Framework\TestCase {
     /**
      * Called once, before any of the tests are executed.
      */
-    public static function setUpBeforeClass(): void {
+    public static function setUpBeforeClass(): void
+    {
         //print __METHOD__ . "\n";
     }
 
@@ -36,18 +38,21 @@ class DateTimeConvertTests extends \PHPUnit\Framework\TestCase {
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before each test method is executed.
      */
-    protected function setUp(): void {
+    protected function setUp(): void
+    {
     }
 
     /**
      * Like setUp(), this is called before each test method to
      * assert any pre-conditions required by tests.
      */
-    protected function assertPreConditions(): void {
+    protected function assertPreConditions(): void
+    {
         //print __METHOD__ . "\n";
     }
 
-    protected function assertPostConditions(): void {
+    protected function assertPostConditions(): void
+    {
         //print __METHOD__ . "\n";
     }
 
@@ -55,18 +60,21 @@ class DateTimeConvertTests extends \PHPUnit\Framework\TestCase {
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown(): void {
+    protected function tearDown(): void
+    {
         //print __METHOD__ . "\n";
     }
 
     /**
      * executed only once, after all the testing methods
      */
-    public static function tearDownAfterClass(): void {
+    public static function tearDownAfterClass(): void
+    {
         //print __METHOD__ . "\n";
     }
 
-    protected function onNotSuccessfulTest(\Throwable $e): void {
+    protected function onNotSuccessfulTest(\Throwable $e): void
+    {
         print __METHOD__ . "\n";
         throw $e;
     }
