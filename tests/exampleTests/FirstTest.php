@@ -111,10 +111,10 @@ class FirstTest extends \PHPUnit\Framework\TestCase
         print __METHOD__ . "\n";
     }
 
-    protected function onNotSuccessfulTest(\Throwable $e): void
+    protected function onNotSuccessfulTest(\Throwable $exception): void
     {
         print __METHOD__ . "\n";
-        throw $e;
+        throw $exception;
     }
 
 
