@@ -2,6 +2,7 @@
 
 require_once dirname(__FILE__) . '/TestUtil.php';
 
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManager;
 
 require_once dirname(__FILE__) . '/bootstrap.php';
@@ -45,7 +46,7 @@ class NGIServiceTest extends \PHPUnit\Framework\TestCase
     {
         parent::setUp();
         $this->em = $this->createEntityManager();
-        (new \Doctrine\Common\DataFixtures\Purger\ORMPurger($this->em))->purge();
+        (new ORMPurger($this->em))->purge();
     }
   /**
    * Run after each test function to prevent pile-up of database connections.
@@ -125,10 +126,14 @@ class NGIServiceTest extends \PHPUnit\Framework\TestCase
         $result = $testConn->query("SELECT * FROM Downtimes")->fetchAll();
         $this->assertTrue(count($result) == 0);
 
-        $result = $testConn->query("SELECT * FROM EndpointLocations")->fetchAll();
+        $result = $testConn->query(
+            "SELECT * FROM EndpointLocations"
+        )->fetchAll();
         $this->assertTrue(count($result) == 0);
 
-        $result = $testConn->query("SELECT * FROM CertificationStatusLogs")->fetchAll();
+        $result = $testConn->query(
+            "SELECT * FROM CertificationStatusLogs"
+        )->fetchAll();
         $this->assertTrue(count($result) == 0);
     }
 }

@@ -5,6 +5,7 @@ require_once dirname(__FILE__) . '/../../lib/DAOs/ServiceDAO.php';
 require_once dirname(__FILE__) . '/../../lib/DAOs/SiteDAO.php';
 require_once dirname(__FILE__) . '/../../lib/DAOs/NGIDAO.php';
 
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManager;
 require_once dirname(__FILE__) . '/bootstrap.php';
 
@@ -54,7 +55,7 @@ class RolesTest extends \PHPUnit\Framework\TestCase
     {
         parent::setUp();
         $this->em = $this->createEntityManager();
-        (new \Doctrine\Common\DataFixtures\Purger\ORMPurger($this->em))->purge();
+        (new ORMPurger($this->em))->purge();
     }
   /**
    * Run after each test function to prevent pile-up of database connections.

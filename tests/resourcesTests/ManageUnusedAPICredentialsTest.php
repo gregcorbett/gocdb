@@ -14,6 +14,7 @@
  */
 namespace org\gocdb\tests;
 
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use org\gocdb\scripts\ManageAPICredentialsActions;
 use org\gocdb\tests\ManageAPICredentialsTestUtils;
 
@@ -50,7 +51,7 @@ class ManageUnusedAPICredentialsTest extends \PHPUnit\Framework\TestCase
     {
         parent::setUp();
         $this->entityManager = $this->createEntityManager();
-        (new \Doctrine\Common\DataFixtures\Purger\ORMPurger($this->entityManager))->purge();
+        (new ORMPurger($this->entityManager))->purge();
       // Pass the Entity Manager into the Factory to allow Gocdb_Services
       // to use other Gocdb_Services.
         \Factory::setEntityManager($this->entityManager);

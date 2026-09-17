@@ -10,6 +10,7 @@ require_once dirname(__FILE__) . '/../../../../lib/Gocdb_Services/RoleActionAuth
 require_once dirname(__FILE__) . '/../../../../lib/Doctrine/entities/Service.php';
 require_once dirname(__FILE__) . '/../../../doctrine/TestUtil.php';
 
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManager;
 use org\gocdb\services\RoleActionAuthorisationService;
 use org\gocdb\services\RoleActionMappingService;
@@ -55,7 +56,7 @@ class ServiceServiceTest extends \PHPUnit\Framework\TestCase
     {
         parent::setUp();
         $this->em = $this->createEntityManager();
-        (new \Doctrine\Common\DataFixtures\Purger\ORMPurger($this->em))->purge();
+        (new ORMPurger($this->em))->purge();
         /**
          * It would be nce to put the database setup here but it creates a rats nest of
          * problems with cleaning the database between tests.

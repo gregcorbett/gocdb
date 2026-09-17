@@ -16,6 +16,7 @@ require_once __DIR__ . '/../../../doctrine/TestUtil.php';
 require_once __DIR__ . '/../../../../lib/Gocdb_Services/Role.php';
 require_once __DIR__ . '/../../../../lib/Gocdb_Services/RoleActionMappingService.php';
 require_once __DIR__ . '/../../../../lib/Gocdb_Services/RoleActionAuthorisationService.php';
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManager;
 require_once __DIR__ . '/../../../doctrine/bootstrap.php';
 
@@ -56,7 +57,7 @@ class RoleActionAuthorisationServiceTest extends \PHPUnit\Framework\TestCase
     {
         parent::setUp();
         $this->em = $this->createEntityManager();
-        (new \Doctrine\Common\DataFixtures\Purger\ORMPurger($this->em))->purge();
+        (new ORMPurger($this->em))->purge();
     }
   /**
    * Run after each test function to prevent pile-up of database connections.

@@ -244,7 +244,8 @@ class FirstTest extends \PHPUnit\Framework\TestCase
         $this->assertStringEndsWith('...', $body );
         $this->assertNotSame($title, $body);
 
-        //From PHPUnit doc: More complex assertions can be formulated using the \PHPUnit\Framework\Constraint\Constraint classes.
+        //From PHPUnit doc: More complex assertions can be formulated using
+        //the \PHPUnit\Framework\Constraint\Constraint classes.
         //They can be evaluated using the assertThat() method.
         //The next example shows how the logicalNot() and equalTo() constraints can be used to express the same assertion as assertNotEquals().
         //@see http://www.phpunit.de/manual/current/en/api.html#api.assert.assertThat
@@ -304,28 +305,33 @@ class FirstTest extends \PHPUnit\Framework\TestCase
         $this->assertStringMatchesFormat('%c', 'c');
         $this->assertStringMatchesFormat('%f', '154.12');
 
-        // PHP is often used to generate HTML. The phpunit/phpunit-dom-assertions
-        // package offers us a powerful tool to test the generated code:
-        // "assertSelectCount". It takes a CSS selector, the number of matches
-        // expected (an int for an exact count, or just true for "at least one"),
-        // and the markup to match against.
+        // PHP is often used to generate HTML. The
+        // phpunit/phpunit-dom-assertions package offers us a powerful tool to
+        // test the generated code: "assertSelectCount". It takes a CSS
+        // selector, the number of matches expected (an int for an exact count,
+        // or just true for "at least one"), and the markup to match against.
         $html = '<div id="my_id"></div>';
 
         $this->assertSelectCount('#my_id', true, $html);
 
-        // Selectors asserting that there is a "div", with an "ul" ancestor and a
-        // "li" parent (with class="enum"), containing a "span" descendant that
-        // contains an element with id="my_test" and the text "Hello World".
+        // Selectors asserting that there is a "div", with an "ul" ancestor
+        // and a "li" parent (with class="enum"), containing a "span"
+        // descendant that contains an element with id="my_test" and the text
+        // "Hello World".
         $html = '<ul><li class="enum"><div><span><strong id="my_test">Hello World</strong></span></div></li></ul>';
 
         $this->assertSelectCount('ul li.enum > div', true, $html);
 
         // "assertSelectEquals" additionally matches on the text content of the
         // selected elements.
-        $this->assertSelectEquals('ul li.enum > div span > #my_test', 'Hello World', true, $html);
+        $this->assertSelectEquals(
+            'ul li.enum > div span > #my_test', 'Hello World', true, $html
+        );
 
         // Both work on XML too, by passing false as the final $isHtml argument.
-        $this->assertSelectCount('root > message', true, $this->xXML, '', false);
+        $this->assertSelectCount(
+            'root > message', true, $this->xXML, '', false
+        );
     }
 
 

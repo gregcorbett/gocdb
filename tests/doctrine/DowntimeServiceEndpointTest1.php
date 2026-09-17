@@ -1,6 +1,7 @@
 <?php
 
 require_once dirname(__FILE__) . '/TestUtil.php';
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManager;
 require_once dirname(__FILE__) . '/bootstrap.php';
 require_once dirname(__FILE__) . '/../../lib/Gocdb_Services/Site.php';
@@ -45,7 +46,7 @@ class DowntimeServiceEndpointTest1 extends \PHPUnit\Framework\TestCase
     {
         parent::setUp();
         $this->em = $this->createEntityManager();
-        (new \Doctrine\Common\DataFixtures\Purger\ORMPurger($this->em))->purge();
+        (new ORMPurger($this->em))->purge();
     }
   /**
    * Run after each test function to prevent pile-up of database connections.
@@ -118,7 +119,8 @@ class DowntimeServiceEndpointTest1 extends \PHPUnit\Framework\TestCase
         $result = $con->query("SELECT * FROM EndpointLocations")->fetchAll();
         $this->assertTrue(count($result) == 2);
         $result = $con->query("SELECT * FROM Downtimes")->fetchAll();
-        $this->assertTrue(count($result) == 4); // 3 DTs linked to service2 and orphanDT
+        // 3 DTs linked to service2 and orphanDT
+        $this->assertTrue(count($result) == 4);
     }
 
   /**
@@ -142,7 +144,8 @@ class DowntimeServiceEndpointTest1 extends \PHPUnit\Framework\TestCase
         $result = $con->query("SELECT * FROM EndpointLocations")->fetchAll();
         $this->assertTrue(count($result) == 2);
         $result = $con->query("SELECT * FROM Downtimes")->fetchAll();
-        $this->assertTrue(count($result) == 7); // 6 DTs linked to service1 and orphanDT
+        // 6 DTs linked to service1 and orphanDT
+        $this->assertTrue(count($result) == 7);
     }
 
   /**
@@ -297,11 +300,15 @@ class DowntimeServiceEndpointTest1 extends \PHPUnit\Framework\TestCase
       *     dt0 dt1-----|   (2 downtime)
       */
         $testConn = $this->getConnection();
-        $result = $testConn->query("SELECT * FROM EndpointLocations")->fetchAll();
+        $result = $testConn->query(
+            "SELECT * FROM EndpointLocations"
+        )->fetchAll();
         $this->assertTrue(count($result) == 2);
         $result = $testConn->query("SELECT * FROM Downtimes")->fetchAll();
         $this->assertTrue(count($result) == 2);
-        $result = $testConn->query("SELECT * FROM Downtimes_EndpointLocations")->fetchAll();
+        $result = $testConn->query(
+            "SELECT * FROM Downtimes_EndpointLocations"
+        )->fetchAll();
         $this->assertTrue(count($result) == 2);
 
        // Assert expected object graph in ORM Mem
@@ -324,11 +331,15 @@ class DowntimeServiceEndpointTest1 extends \PHPUnit\Framework\TestCase
       *  dt0 dt1-----| (2 downtime)
       */
         $testConn = $this->getConnection();
-        $result = $testConn->query("SELECT * FROM EndpointLocations")->fetchAll();
+        $result = $testConn->query(
+            "SELECT * FROM EndpointLocations"
+        )->fetchAll();
         $this->assertTrue(count($result) == 1);
         $result = $testConn->query("SELECT * FROM Downtimes")->fetchAll();
         $this->assertTrue(count($result) == 2);
-        $result = $testConn->query("SELECT * FROM Downtimes_EndpointLocations")->fetchAll();
+        $result = $testConn->query(
+            "SELECT * FROM Downtimes_EndpointLocations"
+        )->fetchAll();
         $this->assertTrue(count($result) == 1);
 
       // Assert expected object graph in ORM Mem
@@ -350,11 +361,15 @@ class DowntimeServiceEndpointTest1 extends \PHPUnit\Framework\TestCase
       *  dt0 dt1-----| (2 downtime)
       */
         $testConn = $this->getConnection();
-        $result = $testConn->query("SELECT * FROM EndpointLocations")->fetchAll();
+        $result = $testConn->query(
+            "SELECT * FROM EndpointLocations"
+        )->fetchAll();
         $this->assertTrue(count($result) == 0);
         $result = $testConn->query("SELECT * FROM Downtimes")->fetchAll();
         $this->assertTrue(count($result) == 2);
-        $result = $testConn->query("SELECT * FROM Downtimes_EndpointLocations")->fetchAll();
+        $result = $testConn->query(
+            "SELECT * FROM Downtimes_EndpointLocations"
+        )->fetchAll();
         $this->assertTrue(count($result) == 0);
 
       // Assert expected object graph in ORM Mem

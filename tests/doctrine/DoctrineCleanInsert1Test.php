@@ -2,6 +2,7 @@
 
 require_once dirname(__FILE__) . '/TestUtil.php';
 require_once dirname(__FILE__) . "/bootstrap.php";
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManager;
 
 /**
@@ -53,7 +54,7 @@ class DoctrineCleanInsert1Test extends \PHPUnit\Framework\TestCase
     {
         parent::setUp();
         $this->em = $this->createEntityManager();
-        (new \Doctrine\Common\DataFixtures\Purger\ORMPurger($this->em))->purge();
+        (new ORMPurger($this->em))->purge();
     }
 
   /**
@@ -224,7 +225,9 @@ class DoctrineCleanInsert1Test extends \PHPUnit\Framework\TestCase
         $this->assertTrue(count($result) == 1);
 
       // Assert that the FK joins worked as expected.
-        $result = $testConn->query("SELECT * FROM NGIs inner join Sites on NGIs.id = Sites.ngi_id")->fetchAll();
+        $result = $testConn->query(
+            "SELECT * FROM NGIs inner join Sites on NGIs.id = Sites.ngi_id"
+        )->fetchAll();
         $this->assertTrue(count($result) == 1);
     }
 
@@ -292,7 +295,9 @@ class DoctrineCleanInsert1Test extends \PHPUnit\Framework\TestCase
         $this->em->flush();
 
         $testConn = $this->getConnection();
-        $result = $testConn->query("SELECT CertificationStatusLogs.id FROM CertificationStatusLogs")->fetchAll();
+        $result = $testConn->query(
+            "SELECT CertificationStatusLogs.id FROM CertificationStatusLogs"
+        )->fetchAll();
         $this->assertTrue(count($result) == 0);
 
         // check deletion of cert log don't delete site
@@ -532,7 +537,9 @@ class DoctrineCleanInsert1Test extends \PHPUnit\Framework\TestCase
 
     public function testShowMergeIsRequiredBetweenDifferentPersistenceCtxt()
     {
-        $this->expectException(\Doctrine\ORM\ORMInvalidArgumentException::class);
+        $this->expectException(
+            \Doctrine\ORM\ORMInvalidArgumentException::class
+        );
         print __METHOD__ . "\n";
       // User
         $u = TestUtil::createSampleUser("Test", "Testing");
@@ -636,13 +643,17 @@ class DoctrineCleanInsert1Test extends \PHPUnit\Framework\TestCase
 
       // Assert that there are still three EndpointLocations and one Downtimes in the database
         $testConn = $this->getConnection();
-        $result = $testConn->query("SELECT * FROM EndpointLocations")->fetchAll();
+        $result = $testConn->query(
+            "SELECT * FROM EndpointLocations"
+        )->fetchAll();
         $this->assertTrue(count($result) == 0);
         $result = $testConn->query("SELECT * FROM Downtimes")->fetchAll();
         $this->assertTrue(count($result) == 0);
         $result = $testConn->query("SELECT * FROM Services")->fetchAll();
         $this->assertTrue(count($result) == 0);
-        $result = $testConn->query("SELECT * FROM Downtimes_EndpointLocations")->fetchAll();
+        $result = $testConn->query(
+            "SELECT * FROM Downtimes_EndpointLocations"
+        )->fetchAll();
         $this->assertTrue(count($result) == 0);
     }
 
@@ -684,11 +695,15 @@ class DoctrineCleanInsert1Test extends \PHPUnit\Framework\TestCase
 
       // Assert that there are expected EndpointLocations and one Downtimes in the database
         $testConn = $this->getConnection();
-        $result = $testConn->query("SELECT * FROM EndpointLocations")->fetchAll();
+        $result = $testConn->query(
+            "SELECT * FROM EndpointLocations"
+        )->fetchAll();
         $this->assertTrue(count($result) == 1);
         $result = $testConn->query("SELECT * FROM Downtimes")->fetchAll();
         $this->assertTrue(count($result) == 1);
-        $result = $testConn->query("SELECT * FROM Downtimes_EndpointLocations")->fetchAll();
+        $result = $testConn->query(
+            "SELECT * FROM Downtimes_EndpointLocations"
+        )->fetchAll();
         $this->assertTrue(count($result) == 1);
 
       // Try and delete the service
@@ -768,11 +783,15 @@ class DoctrineCleanInsert1Test extends \PHPUnit\Framework\TestCase
 
       // Assert that there are still three EndpointLocations and one Downtimes in the database
         $testConn = $this->getConnection();
-        $result = $testConn->query("SELECT * FROM EndpointLocations")->fetchAll();
+        $result = $testConn->query(
+            "SELECT * FROM EndpointLocations"
+        )->fetchAll();
         $this->assertTrue(count($result) == 3);
         $result = $testConn->query("SELECT * FROM Downtimes")->fetchAll();
         $this->assertTrue(count($result) == 1);
-        $result = $testConn->query("SELECT * FROM Downtimes_EndpointLocations")->fetchAll();
+        $result = $testConn->query(
+            "SELECT * FROM Downtimes_EndpointLocations"
+        )->fetchAll();
         $this->assertTrue(count($result) == 1);
 
       // Assert that our in-mem entity model is now inconsistent with DB
@@ -893,7 +912,9 @@ class DoctrineCleanInsert1Test extends \PHPUnit\Framework\TestCase
       $this->assertTrue(count($result) == $n);
 
       // Assert that the FK joins worked as expected.
-      $result = $testConn->query("SELECT * FROM NGIs inner join Sites on NGIs.id = Sites.ngi_id")->fetchAll();
+      $result = $testConn->query(
+          "SELECT * FROM NGIs inner join Sites on NGIs.id = Sites.ngi_id"
+      )->fetchAll();
       if($setJoinCorrectly) {
           $this->assertTrue(count($result) == $n);
       } else {

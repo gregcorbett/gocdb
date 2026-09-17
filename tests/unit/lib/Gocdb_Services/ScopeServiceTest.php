@@ -17,6 +17,7 @@ require_once __DIR__ . '/../../../../lib/Gocdb_Services/Scope.php';
 require_once __DIR__ . '/../../../../lib/Gocdb_Services/Config.php';
 require_once __DIR__ . '/../../../../lib/Gocdb_Services/Factory.php';
 
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManager;
 require_once __DIR__ . '/../../../doctrine/bootstrap.php';
 
@@ -57,7 +58,7 @@ class ScopeServiceTest extends \PHPUnit\Framework\TestCase
     {
         parent::setUp();
         $this->em = $this->createEntityManager();
-        (new \Doctrine\Common\DataFixtures\Purger\ORMPurger($this->em))->purge();
+        (new ORMPurger($this->em))->purge();
     }
   /**
    * Run after each test function to prevent pile-up of database connections.

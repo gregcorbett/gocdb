@@ -7,6 +7,7 @@ namespace org\gocdb\tests;
 
 require_once dirname(__FILE__) . '/TestUtil.php';
 
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManager;
 use RuntimeException;
 use TestUtil; // Extensive changes needed to put TestUtil in org\gocdb\tests;
@@ -51,7 +52,7 @@ class ServiceTypeTest extends \PHPUnit\Framework\TestCase
     {
         parent::setUp();
         $this->em = $this->createEntityManager();
-        (new \Doctrine\Common\DataFixtures\Purger\ORMPurger($this->em))->purge();
+        (new ORMPurger($this->em))->purge();
     }
 
     /**

@@ -18,6 +18,7 @@ require_once __DIR__ . '/../../../../lib/Gocdb_Services/User.php';
 require_once __DIR__ . '/../../../../lib/Gocdb_Services/Config.php';
 require_once __DIR__ . '/../../../../lib/Gocdb_Services/Factory.php';
 
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManager;
 //use org\gocdb\services\User;
 //use User;
@@ -58,7 +59,7 @@ class UserServiceTest extends \PHPUnit\Framework\TestCase
     {
         parent::setUp();
         $this->entityManager = $this->createEntityManager();
-        (new \Doctrine\Common\DataFixtures\Purger\ORMPurger($this->entityManager))->purge();
+        (new ORMPurger($this->entityManager))->purge();
     }
   /**
    * Run after each test function to prevent pile-up of database connections.

@@ -1,6 +1,7 @@
 <?php
 
 require_once dirname(__FILE__) . '/TestUtil.php';
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManager;
 require_once dirname(__FILE__) . '/bootstrap.php';
 require_once dirname(__FILE__) . '/../../lib/Gocdb_Services/Site.php';
@@ -46,7 +47,7 @@ class ServiceDAOTest extends \PHPUnit\Framework\TestCase
     {
         parent::setUp();
         $this->em = $this->createEntityManager();
-        (new \Doctrine\Common\DataFixtures\Purger\ORMPurger($this->em))->purge();
+        (new ORMPurger($this->em))->purge();
     }
   /**
    * Run after each test function to prevent pile-up of database connections.

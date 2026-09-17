@@ -23,6 +23,7 @@ require_once __DIR__ . '/../../../../lib/Gocdb_Services/Config.php';
 require_once __DIR__ . '/../../../../lib/Gocdb_Services/Factory.php';
 require_once __DIR__ . '/../../../../lib/Gocdb_Services/Scope.php';
 
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManager;
 use org\gocdb\tests\ServiceTestUtil;
 use RuntimeException;
@@ -68,7 +69,7 @@ class SiteServiceTest extends \PHPUnit\Framework\TestCase
         parent::setUp();
         $this->entityManager = $this->createEntityManager();
         $this->serviceTestUtil = new ServiceTestUtil();
-        (new \Doctrine\Common\DataFixtures\Purger\ORMPurger($this->entityManager))->purge();
+        (new ORMPurger($this->entityManager))->purge();
         $this->testUtil = new TestUtil();
       // Pass the Entity Manager into the Factory to allow Gocdb_Services
       // to use other Gocdb_Service.

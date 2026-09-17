@@ -17,6 +17,7 @@ namespace org\gocdb\tests;
 require_once __DIR__ . '/ServiceTestUtil.php';
 require_once __DIR__ . '/../../../../lib/Gocdb_Services/APIAuthenticationService.php';
 
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManager;
 use org\gocdb\services\APIAuthenticationService;
 use RuntimeException;
@@ -61,7 +62,7 @@ class APIAuthEnticationServiceTest extends \PHPUnit\Framework\TestCase
         parent::setUp();
         $this->entityManager = $this->createEntityManager();
         $this->serviceTestUtil = new ServiceTestUtil();
-        (new \Doctrine\Common\DataFixtures\Purger\ORMPurger($this->entityManager))->purge();
+        (new ORMPurger($this->entityManager))->purge();
       // Pass the Entity Manager into the Factory to allow Gocdb_Services
       // to use other Gocdb_Services.
         \Factory::setEntityManager($this->entityManager);

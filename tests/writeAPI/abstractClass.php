@@ -18,6 +18,7 @@ require_once __DIR__ . '/../../lib/Gocdb_Services/ServiceService.php';
 require_once __DIR__ . '/../../htdocs/PI/write/PIWriteRequest.php';
 require_once __DIR__ . '/../doctrine/TestUtil.php';
 
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManager;
 
 /**
@@ -47,7 +48,7 @@ abstract class AbstractWriteAPITestClass extends \PHPUnit\Framework\TestCase
     {
         parent::setUp();
         $this->em = $this->createEntityManager();
-        (new \Doctrine\Common\DataFixtures\Purger\ORMPurger($this->em))->purge();
+        (new ORMPurger($this->em))->purge();
     }
   /**
    * Run after each test function to prevent pile-up of database connections.

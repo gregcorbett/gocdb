@@ -5,6 +5,7 @@
 require_once dirname(__FILE__) . '/TestUtil.php';
 require_once dirname(__FILE__) . '/bootstrap.php';
 
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManager;
 
 
@@ -58,7 +59,7 @@ class RoleActionRecordTests extends \PHPUnit\Framework\TestCase
     {
         parent::setUp();
         $this->em = $this->createEntityManager();
-        (new \Doctrine\Common\DataFixtures\Purger\ORMPurger($this->em))->purge();
+        (new ORMPurger($this->em))->purge();
     }
 
     /**

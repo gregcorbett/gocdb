@@ -16,6 +16,7 @@
 require_once __DIR__ . '/../../../doctrine/TestUtil.php';
 require_once __DIR__ . '/../../../../lib/Gocdb_Services/Factory.php';
 
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManager;
 use org\gocdb\services\Role;
 use org\gocdb\services\RoleActionAuthorisationService;
@@ -65,7 +66,7 @@ class RoleServiceTest2 extends \PHPUnit\Framework\TestCase
     {
         parent::setUp();
         $this->entityManager = $this->createEntityManager();
-        (new \Doctrine\Common\DataFixtures\Purger\ORMPurger($this->entityManager))->purge();
+        (new ORMPurger($this->entityManager))->purge();
         $this->util = new TestUtil();
         $this->user = $this->util->createSampleUser("Alpha", "Beta");
         $this->user->setAdmin(true);

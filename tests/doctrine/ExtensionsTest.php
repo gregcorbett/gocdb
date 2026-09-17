@@ -5,6 +5,7 @@ require_once dirname(__FILE__) . '/../../lib/Gocdb_Services/ServiceService.php';
 require_once dirname(__FILE__) . '/../../lib/Gocdb_Services/RoleActionMappingService.php';
 require_once dirname(__FILE__) . '/../../lib/Gocdb_Services/RoleActionAuthorisationService.php';
 require_once dirname(__FILE__) . '/../../lib/Gocdb_Services/User.php';
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManager;
 require_once dirname(__FILE__) . '/bootstrap.php';
 
@@ -46,7 +47,7 @@ class ExtensionsTest extends \PHPUnit\Framework\TestCase
     {
         parent::setUp();
         $this->em = $this->createEntityManager();
-        (new \Doctrine\Common\DataFixtures\Purger\ORMPurger($this->em))->purge();
+        (new ORMPurger($this->em))->purge();
     }
   /**
    * Run after each test function to prevent pile-up of database connections.
@@ -156,7 +157,9 @@ class ExtensionsTest extends \PHPUnit\Framework\TestCase
       //Get site id to use in sql statements
         $siteId = $site->getId();
 
-        $result = $con->query("SELECT * FROM Site_Properties WHERE PARENTSITE_ID = '$siteId'")->fetchAll();
+        $result = $con->query(
+            "SELECT * FROM Site_Properties WHERE PARENTSITE_ID = '$siteId'"
+        )->fetchAll();
       //Assert that only 2 site properties exist in the database for this site
         $this->assertEquals(2, count($result));
 
@@ -165,11 +168,15 @@ class ExtensionsTest extends \PHPUnit\Framework\TestCase
         $this->em->flush();
 
       //Check site is gone
-        $result = $con->query("SELECT * FROM Sites WHERE ID = '$siteId'")->fetchAll();
+        $result = $con->query(
+            "SELECT * FROM Sites WHERE ID = '$siteId'"
+        )->fetchAll();
         $this->assertEquals(0, count($result));
 
       //Check properties are gone
-        $result = $con->query("SELECT * FROM Site_Properties WHERE PARENTSITE_ID = '$siteId'")->fetchAll();
+        $result = $con->query(
+            "SELECT * FROM Site_Properties WHERE PARENTSITE_ID = '$siteId'"
+        )->fetchAll();
         $this->assertEquals(0, count($result));
     }
 
@@ -250,7 +257,10 @@ class ExtensionsTest extends \PHPUnit\Framework\TestCase
       //Get service id to use in sql statements
         $servId = $service->getId();
 
-        $result = $con->query("SELECT * FROM Service_Properties WHERE PARENTSERVICE_ID = '$servId'")->fetchAll();
+        $result = $con->query(
+            "SELECT * FROM Service_Properties"
+            . " WHERE PARENTSERVICE_ID = '$servId'"
+        )->fetchAll();
       //Assert that only 2 service properties exist in the database for this service
         $this->assertEquals(2, count($result));
 
@@ -259,11 +269,16 @@ class ExtensionsTest extends \PHPUnit\Framework\TestCase
         $this->em->flush();
 
       //Check service is gone
-        $result = $con->query("SELECT * FROM Services WHERE ID = '$servId'")->fetchAll();
+        $result = $con->query(
+            "SELECT * FROM Services WHERE ID = '$servId'"
+        )->fetchAll();
         $this->assertEquals(0, count($result));
 
       //Check properties are gone
-        $result = $con->query("SELECT * FROM Service_Properties WHERE PARENTSERVICE_ID = '$servId'")->fetchAll();
+        $result = $con->query(
+            "SELECT * FROM Service_Properties"
+            . " WHERE PARENTSERVICE_ID = '$servId'"
+        )->fetchAll();
         $this->assertEquals(0, count($result));
     }
 
@@ -353,7 +368,10 @@ class ExtensionsTest extends \PHPUnit\Framework\TestCase
       //Get servicegroup id to use in sql statements
         $sgId = $sg->getId();
 
-        $result = $con->query("SELECT * FROM ServiceGroup_Properties WHERE PARENTSERVICEGROUP_ID = '$sgId'")->fetchAll();
+        $result = $con->query(
+            "SELECT * FROM ServiceGroup_Properties"
+            . " WHERE PARENTSERVICEGROUP_ID = '$sgId'"
+        )->fetchAll();
       //Assert that only 2 service group properties exist in the database for this service
         $this->assertEquals(2, count($result));
 
@@ -362,11 +380,16 @@ class ExtensionsTest extends \PHPUnit\Framework\TestCase
         $this->em->flush();
 
       //Check service group is gone
-        $result = $con->query("SELECT * FROM ServiceGroups WHERE ID = '$sgId'")->fetchAll();
+        $result = $con->query(
+            "SELECT * FROM ServiceGroups WHERE ID = '$sgId'"
+        )->fetchAll();
         $this->assertEquals(0, count($result));
 
       //Check properties are gone
-        $result = $con->query("SELECT * FROM ServiceGroup_Properties WHERE PARENTSERVICEGROUP_ID = '$sgId'")->fetchAll();
+        $result = $con->query(
+            "SELECT * FROM ServiceGroup_Properties"
+            . " WHERE PARENTSERVICEGROUP_ID = '$sgId'"
+        )->fetchAll();
         $this->assertEquals(0, count($result));
     }
 
@@ -448,7 +471,10 @@ class ExtensionsTest extends \PHPUnit\Framework\TestCase
       //Get service id to use in sql statements
         $endpointId = $endpoint->getId();
 
-        $result = $con->query("SELECT * FROM Endpoint_Properties WHERE PARENTENDPOINT_ID = '$endpointId'")->fetchAll();
+        $result = $con->query(
+            "SELECT * FROM Endpoint_Properties"
+            . " WHERE PARENTENDPOINT_ID = '$endpointId'"
+        )->fetchAll();
       //Assert that only 2 service properties exist in the database for this service
         $this->assertEquals(2, count($result));
 
@@ -458,11 +484,16 @@ class ExtensionsTest extends \PHPUnit\Framework\TestCase
         $this->em->flush();
 
       //Check endpoint is gone
-        $result = $con->query("SELECT * FROM EndpointLocations WHERE ID = '$endpointId'")->fetchAll();
+        $result = $con->query(
+            "SELECT * FROM EndpointLocations WHERE ID = '$endpointId'"
+        )->fetchAll();
         $this->assertEquals(0, count($result));
 
       //Check properties are gone
-        $result = $con->query("SELECT * FROM Endpoint_Properties WHERE PARENTENDPOINT_ID = '$endpointId'")->fetchAll();
+        $result = $con->query(
+            "SELECT * FROM Endpoint_Properties"
+            . " WHERE PARENTENDPOINT_ID = '$endpointId'"
+        )->fetchAll();
         $this->assertEquals(0, count($result));
     }
 
@@ -530,7 +561,9 @@ class ExtensionsTest extends \PHPUnit\Framework\TestCase
       // Get user id to use in sql statements
         $userId = $user->getId();
 
-        $result = $con->query("SELECT * FROM User_Identifiers WHERE PARENTUSER_ID = '$userId'")->fetchAll();
+        $result = $con->query(
+            "SELECT * FROM User_Identifiers WHERE PARENTUSER_ID = '$userId'"
+        )->fetchAll();
       // Assert that only 2 user identifiers exist in the database for this user
         $this->assertEquals(2, count($result));
 
@@ -539,11 +572,15 @@ class ExtensionsTest extends \PHPUnit\Framework\TestCase
         $this->em->flush();
 
       // Check user is gone
-        $result = $con->query("SELECT * FROM Users WHERE ID = '$userId'")->fetchAll();
+        $result = $con->query(
+            "SELECT * FROM Users WHERE ID = '$userId'"
+        )->fetchAll();
         $this->assertEquals(0, count($result));
 
       // Check identifiers are gone
-        $result = $con->query("SELECT * FROM User_Identifiers WHERE PARENTUSER_ID = '$userId'")->fetchAll();
+        $result = $con->query(
+            "SELECT * FROM User_Identifiers WHERE PARENTUSER_ID = '$userId'"
+        )->fetchAll();
         $this->assertEquals(0, count($result));
     }
 }
