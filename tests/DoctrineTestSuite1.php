@@ -6,6 +6,8 @@
 
 namespace org\gocdb\tests;
 
+use PHPUnit\Framework\TestSuite;
+
 ini_set('memory_limit', '512M');
 require_once __DIR__ . '/doctrine/DoctrineCleanInsert1Test.php';
 require_once __DIR__ . '/doctrine/NGIServiceTest.php';
@@ -46,7 +48,7 @@ class DoctrineTestSuite1
         echo "\n\n-------------------------------------------------\n";
         echo "Executing Test Suite 1\n";
 
-        $suite = new \PHPUnit\Framework\TestSuite('Test Suite 1');
+        $suite = new TestSuite('Test Suite 1');
 
         $suite->addTestSuite('DoctrineCleanInsert1Test');
         $suite->addTestSuite('NGIServiceTest');
