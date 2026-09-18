@@ -90,10 +90,8 @@ class RoleActionAuthorisationServiceTest extends \PHPUnit\Framework\TestCase
         $tables = simplexml_load_file($fixture);
 
         foreach ($tables as $tableName) {
-          //print $tableName->getName() . "\n";
             $sql = "SELECT * FROM " . $tableName->getName();
             $result = $con->query($sql)->fetchAll();
-          //echo 'row count: '.count($result) ;
             if (count($result) != 0) {
                 throw new RuntimeException("Invalid fixture. Table has rows: " . $tableName->getName());
             }
